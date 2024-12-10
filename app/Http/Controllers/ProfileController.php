@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\ProfileUpdateService;
+
 
 class ProfileController extends Controller
 {
+    protected $profileUpdateService;
+    public function __construct(ProfileUpdateService $profileUpdateService)
+    {
+        $this->profileUpdateService = $profileUpdateService;
+    }
+
     public function show()
     {
         return inertia('Profile/Show', ['user' => Auth::user()]);
@@ -18,21 +27,11 @@ class ProfileController extends Controller
         return inertia('Profile/Edit', ['user' => Auth::user()]);
     }
 
-    public function update(Request $request)
+    public function update(ProfileUpdateRequest $request)
     {
-        $attributes = $request->validate([
-            'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['sometimes', 'nullable', 'min:8', 'confirmed']
-        ]);
+        $attributes = $request->validated();
 
-        if ($attributes['password'] === null) {
-            unset($attributes['password']);
-        }
-
-        /** @var \App\Models\User $user */
-        $user = Auth::user();
-
-        $user->update($attributes);
+        $this->profileUpdateService->updateUser(Auth::user(), $attributes);
 
         return redirect('/');
     }

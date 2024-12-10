@@ -1,13 +1,17 @@
 <script setup>
 import AppLayout from "../../Layouts/AppLayout.vue";
-import { useForm } from "@inertiajs/vue3";
-import { Link } from "@inertiajs/vue3";
+import { useForm, Link } from "@inertiajs/vue3";
+import { computed } from "vue";
+
 const props = defineProps({ user: Object });
+
 const form = useForm({
     email: props.user.email,
     password: "",
     password_confirmation: "",
 });
+const isNewEmail = computed(() => props.user.email === form.email);
+
 const submitForm = () => form.patch("/profile/update");
 </script>
 <template>
@@ -69,9 +73,15 @@ const submitForm = () => form.patch("/profile/update");
                         Cancel
                     </Link>
                     <button
-                        class="bg-secondary/50 hover:bg-secondary/80 px-3 py-1 font-medium border border-white"
+                        class="bg-secondary/50 px-3 py-1 font-medium border border-white"
+                        :class="{
+                            'cursor-not-allowed opacity-50 bg-gray-500':
+                                isNewEmail,
+                            'hover:bg-secondary/80': !isNewEmail,
+                        }"
+                        :disabled="isNewEmail"
                     >
-                        Register
+                        Update
                     </button>
                 </div>
             </div>
