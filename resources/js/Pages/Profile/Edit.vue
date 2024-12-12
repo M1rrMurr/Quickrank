@@ -1,4 +1,5 @@
 <script setup>
+import TextInput from "../../Components/TextInput.vue";
 import AppLayout from "../../Layouts/AppLayout.vue";
 import { useForm, Link } from "@inertiajs/vue3";
 import { computed } from "vue";
@@ -10,7 +11,9 @@ const form = useForm({
     password: "",
     password_confirmation: "",
 });
-const isNewEmail = computed(() => props.user.email === form.email);
+const isNewData = computed(
+    () => props.user.email === form.email && !form.password
+);
 
 const submitForm = () => form.patch("/profile/update");
 </script>
@@ -26,14 +29,12 @@ const submitForm = () => form.patch("/profile/update");
                 ></div>
                 <div class="flex gap-3 items-center">
                     <label class="flex-1 text-lg" for="email">Email</label>
-                    <input
-                        class="w-auto text-primary font-semibold py-1 px-3 placeholder:italic"
-                        type="email"
+                    <TextInput
+                        v-model="form.email"
+                        placeholder="Email"
                         name="email"
                         id="email"
-                        placeholder="Email Address"
-                        v-model="form.email"
-                    />
+                    ></TextInput>
                 </div>
                 <div
                     class="self-end text-red-500"
@@ -42,8 +43,7 @@ const submitForm = () => form.patch("/profile/update");
                 ></div>
                 <div class="flex gap-3 items-center">
                     <label class="flex-1" for="password">Password</label>
-                    <input
-                        class="w-auto text-primary font-semibold py-1 px-3 placeholder:italic"
+                    <TextInput
                         type="password"
                         name="password"
                         id="password"
@@ -55,8 +55,7 @@ const submitForm = () => form.patch("/profile/update");
                     <label class="flex-1" for="password_confirmation"
                         >Confirm Your Password</label
                     >
-                    <input
-                        class="w-auto text-primary font-semibold py-1 px-3 placeholder:italic"
+                    <TextInput
                         type="password"
                         name="password_confirmation"
                         id="password_confirmation"
@@ -76,8 +75,8 @@ const submitForm = () => form.patch("/profile/update");
                         class="bg-secondary/50 px-3 py-1 font-medium border border-white"
                         :class="{
                             'cursor-not-allowed opacity-50 bg-gray-500':
-                                isNewEmail,
-                            'hover:bg-secondary/80': !isNewEmail,
+                                isNewData,
+                            'hover:bg-secondary/80': !isNewData,
                         }"
                         :disabled="isNewEmail"
                     >

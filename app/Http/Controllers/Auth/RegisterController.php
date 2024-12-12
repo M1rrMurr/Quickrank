@@ -18,7 +18,7 @@ class RegisterController extends Controller
     {
         $credentials = $request->validate([
             'email' => ['email', 'required', 'unique:users,email'],
-
+            'name' => ['required', 'unique:users,name'],
             'password' => [
                 //'regex:/[a-z]/',    // At least one lowercase letter
                 //'regex:/[A-Z]/',    // At least one uppercase letter
@@ -30,6 +30,9 @@ class RegisterController extends Controller
                 'confirmed'
             ]
         ]);
+
+        $credentials['isBooster'] = false;
+
         $user = $user->create($credentials);
 
         $request->session()->regenerate();

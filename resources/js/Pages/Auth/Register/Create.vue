@@ -1,11 +1,13 @@
 <script setup>
 import { Link } from "@inertiajs/vue3";
 import { useForm, usePage } from "@inertiajs/vue3";
+import TextInput from "../../../Components/TextInput.vue";
 
 const form = useForm({
     email: "zsoli@citromail.hu",
     password: "",
     password_confirmation: "",
+    name: "",
 });
 
 const submitForm = () => form.post("/register");
@@ -34,6 +36,16 @@ const submitForm = () => form.post("/register");
                         id="email"
                         placeholder="Email Address"
                         v-model="form.email"
+                    />
+                </div>
+                <div class="flex gap-3 items-center">
+                    <label class="flex-1 text-lg" for="name">Username</label>
+                    <TextInput
+                        class="w-auto text-primary font-semibold py-1 px-3 placeholder:italic"
+                        name="name"
+                        id="name"
+                        placeholder="Username"
+                        v-model="form.name"
                     />
                 </div>
                 <div
