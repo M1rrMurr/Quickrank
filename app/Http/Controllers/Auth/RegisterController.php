@@ -31,7 +31,9 @@ class RegisterController extends Controller
             ]
         ]);
 
-        $credentials['isBooster'] = false;
+        $credentials['is_booster'] = false;
+        $credentials['avatar'] = null;
+
 
         $user = $user->create($credentials);
 

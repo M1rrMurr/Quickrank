@@ -8,8 +8,15 @@ const props = defineProps({ game: Object });
         <img class="" :src="game.image" />
         <div>
             <div class="text-xl">Coaches</div>
-            <div v-for="coach in game.users" :key="coach.id">
-                <div v-text="coach.name" />
+            <div class="flex gap-3 flex-wrap">
+                <div
+                    class="p-3 rounded bg-secondary/30 w-40"
+                    v-for="coach in game.users"
+                    :key="coach.id"
+                >
+                    <img class="h-20" :src="coach.avatar" />
+                    <div v-text="coach.name" />
+                </div>
             </div>
         </div>
     </AppLayout>

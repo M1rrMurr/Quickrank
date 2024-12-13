@@ -50,7 +50,9 @@ class DatabaseSeeder extends Seeder
 
         $tags = collect($this->tagsArray)->map(fn($tag) => Tag::create($tag));
 
-        $users = User::factory(50)->create();
+        User::factory(50)->create();
+
+        $boosters = User::factory(20)->booster()->create();
 
         $games = collect($this->gamesArray)->map(fn($game) => Game::create($game));
 
@@ -59,16 +61,8 @@ class DatabaseSeeder extends Seeder
         }
 
 
-
-        $boosters = $users->filter(fn($user) => $user->isBooster);
-
         foreach ($boosters as $booster) {
             $booster->games()->attach($games->random(rand(1, 3))->pluck('id')->toArray());
         }
-
-        /* User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]); */
     }
 }

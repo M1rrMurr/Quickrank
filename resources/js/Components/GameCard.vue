@@ -36,11 +36,11 @@ const toggleShowDetails = () => (showDetails.value = !showDetails.value);
 
                     <div class="flex justify-center gap-3 mt-3 mb-2">
                         <div
-                            class="flex items-center justify-center border border-white/20 px-3 py1 rounded text-xs font-semibold"
+                            class="flex items-center justify-center border border-white/20 px-3 py-1 leading-none rounded text-xs font-semibold"
                             v-for="tag in game.tags"
                             :key="tag.id"
                         >
-                            #<span v-text="tag.name" />
+                            {{ tag.name }}
                         </div>
                     </div>
                 </div>
