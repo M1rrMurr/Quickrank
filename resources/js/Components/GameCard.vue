@@ -30,7 +30,7 @@ const toggleShowDetails = () => (showDetails.value = !showDetails.value);
             >
                 <div
                     v-if="showDetails"
-                    class="mx-2 absolute inset-x-0 bottom-0 bg-black/80 text-center rounded-t-lg transition-all"
+                    class="mx-2 absolute inset-x-0 bottom-0 bg-black/80 text-center transition-all"
                 >
                     <div class="pt-2 font-semibold" v-text="name" />
 

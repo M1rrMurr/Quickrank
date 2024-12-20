@@ -32,12 +32,18 @@ const profileButton = ref(null);
         </Link>
         <div class="flex gap-3">
             <div class="" v-if="$page.props.auth">
-                <div>
+                <div
+                    class="flex items-center justify-center gap-2 cursor-pointer"
+                    @click="showProfile = !showProfile"
+                    ref="profileButton"
+                >
                     <img
-                        ref="profileButton"
-                        class="h-8 cursor-pointer"
-                        @click="showProfile = !showProfile"
+                        class="h-8 cursor-pointer pointer-events-none"
                         src="/public/svgs/user-circle.svg"
+                    />
+                    <span
+                        class="font-semibold capitalize pointer-events-none"
+                        v-text="$page.props.auth.user.username"
                     />
                 </div>
                 <!-- profile modal -->

@@ -8,6 +8,6 @@ class CoachController extends Controller
 {
     public function index()
     {
-        return inertia('Coaches/Index');
+        return inertia('Coach/Index');
     }
 }

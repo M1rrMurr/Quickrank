@@ -26,5 +26,14 @@ const form = useForm({});
                 <img src="/public/svgs/logout.svg" alt="logout" />Logout
             </button>
         </form>
+        <Link
+            class="hover:bg-primary py-1 px-3 font-semibold rounded block"
+            :href="`/messages/inbox`"
+        >
+            <div class="flex gap-3">
+                <img src="/public/svgs/mail-opened.svg" alt="" />
+                <span>Inbox</span>
+            </div>
+        </Link>
     </div>
 </template>

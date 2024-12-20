@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Game;
+use App\Models\Message;
 use App\Models\Tag;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -49,17 +50,18 @@ class DatabaseSeeder extends Seeder
     {
 
         $tags = collect($this->tagsArray)->map(fn($tag) => Tag::create($tag));
+        $games = collect($this->gamesArray)->map(fn($game) => Game::create($game));
 
+        //my dummy user
+        User::create(['email' => 'zsoli@citromail.hu', 'password' => 'password', 'name' => 'zsoli', 'is_booster' => false]);
         User::factory(50)->create();
-
         $boosters = User::factory(20)->booster()->create();
 
-        $games = collect($this->gamesArray)->map(fn($game) => Game::create($game));
+        Message::factory(200)->create();
 
         foreach ($games as $game) {
             $game->tags()->attach($tags->random(rand(1, 3))->pluck('id')->toArray());
         }
-
 
         foreach ($boosters as $booster) {
             $booster->games()->attach($games->random(rand(1, 3))->pluck('id')->toArray());

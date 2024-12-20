@@ -46,8 +46,7 @@ const login = () => form.post("/login");
                     <Link
                         class="text-sm text-blueberry font-semibold italic hover:underline"
                         href="/register"
-                        >Don't have account yet? Visit the register
-                        page...</Link
+                        >Not registered yet? Visit the register page...</Link
                     >
                 </div>
                 <div

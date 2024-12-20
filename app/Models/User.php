@@ -52,4 +52,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Game::class, 'games_coaches');
     }
+
+    public function sentMessages()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    public function receivedMessages()
+    {
+        return $this->hasMany(Message::class, 'receiver_id');
+    }
 }

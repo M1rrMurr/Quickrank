@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,6 @@ Route::get('/profile/edit', [ProfileController::class, 'edit'])->middleware(['au
 Route::patch('/profile/update', [ProfileController::class, 'update'])->middleware(['auth']);
 
 Route::get('/games/{name}', [GameController::class, 'show']);
+
+Route::get('/messages/inbox', [MessageController::class, 'indexInbox'])->middleware('auth');
+Route::get('/messages/sent', [MessageController::class, 'indexSent'])->middleware('auth');
