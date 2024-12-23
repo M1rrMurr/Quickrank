@@ -29,3 +29,6 @@ Route::get('/games/{name}', [GameController::class, 'show']);
 
 Route::get('/messages/inbox', [MessageController::class, 'indexInbox'])->middleware('auth');
 Route::get('/messages/sent', [MessageController::class, 'indexSent'])->middleware('auth');
+
+Route::get('/messages/create', [MessageController::class, 'create'])->middleware('auth');
+Route::post('/messages/store', [MessageController::class, 'store'])->middleware('auth');

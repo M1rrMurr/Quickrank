@@ -9,5 +9,10 @@ import { Link } from "@inertiajs/vue3";
         <Link class="flex gap-2" href="/messages/sent"
             ><img src="/public/svgs/mail.svg" alt="mail" />Sent</Link
         >
+        <div class="">
+            <Link href="/messages/create" class="font-semibold"
+                >+ New Message</Link
+            >
+        </div>
     </div>
 </template>

@@ -1,7 +1,8 @@
 <script setup>
-import { ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { Link } from "@inertiajs/vue3";
 
+import { usePage } from "@inertiajs/vue3";
 import DropdownContainer from "./DropdownContainer.vue";
 import NavContainer from "./NavLinkContainer.vue";
 import NavLink from "./NavLink.vue";
@@ -10,6 +11,21 @@ import ProfileDropdown from "./ProfileDropdown.vue";
 const showProfile = ref(false);
 
 const profileButton = ref(null);
+
+const page = usePage();
+const userId = computed(() => page.props.auth.user.id);
+
+console.log(userId.value);
+
+const listenForMessages = () => {
+    window.Echo.private(`App.Models.User.${userId.value}`).listen(
+        ".MessageSent",
+        (event) => {
+            console.log("New message received:", event);
+        }
+    );
+};
+listenForMessages();
 </script>
 <template>
     <div
