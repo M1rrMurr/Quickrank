@@ -35,7 +35,15 @@ class MessageController extends Controller
 
         $message = Message::create($attributes);
 
-        event(new MessageSent($message));
+        event(
+            new MessageSent(
+                $message->load(
+                    [
+                        'sender' => fn($query) => $query->select('id', 'name')
+                    ]
+                )->toArray()
+            )
+        );
 
         return redirect('/messages/inbox');
     }

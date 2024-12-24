@@ -11,21 +11,6 @@ import ProfileDropdown from "./ProfileDropdown.vue";
 const showProfile = ref(false);
 
 const profileButton = ref(null);
-
-const page = usePage();
-const userId = computed(() => page.props.auth.user.id);
-
-console.log(userId.value);
-
-const listenForMessages = () => {
-    window.Echo.private(`App.Models.User.${userId.value}`).listen(
-        ".MessageSent",
-        (event) => {
-            console.log("New message received:", event);
-        }
-    );
-};
-listenForMessages();
 </script>
 <template>
     <div

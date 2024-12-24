@@ -20,10 +20,10 @@ class MessageSent implements ShouldBroadcast
      * Create a new event instance.
      */
     public function __construct(
-        public Message $message
+        public array $message
     ) {
+
         $this->message = $message;
-        /* Log::info('MessageSent event fired', ['message' => $message]); */
     }
 
     /**
@@ -34,7 +34,7 @@ class MessageSent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('App.Models.User.' . $this->message->receiver_id),
+            new PrivateChannel('App.Models.User.' . $this->message['receiver_id']),
         ];
     }
 }
