@@ -15,11 +15,14 @@ const name = {
 };
 </script>
 <template>
-    <Link href="#" class="border-y block border-primary p-1 hover:border-white">
+    <Link
+        href="#"
+        class="border-y block w-full border-primary p-1 hover:border-white"
+    >
         <div class="space-x-2">
             <span v-text="prefix[type]" />
             <span class="text-lg font-semibold" v-text="name[type]" />
         </div>
-        <div class="ml-3" v-text="message.message" />
+        <div class="ml-3" v-text="message.message.slice(0, 150) + ' ...'" />
     </Link>
 </template>

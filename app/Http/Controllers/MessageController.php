@@ -14,13 +14,13 @@ class MessageController extends Controller
     {
 
         return inertia('Message/InboxIndex', [
-            'messages' => Auth::user()->receivedMessages()->with(['sender' => fn($query) => $query->select('id', 'name')])->get()
+            'messages' => Auth::user()->receivedMessages()->with(['sender' => fn($query) => $query->select('id', 'name')])->paginate(10)
         ]);
     }
     public function indexSent()
     {
 
-        return inertia('Message/SentIndex', ['messages' => Auth::user()->sentMessages()->with(['receiver' => fn($query) => $query->select('id', 'name')])->get()]);
+        return inertia('Message/SentIndex', ['messages' => Auth::user()->sentMessages()->with(['receiver' => fn($query) => $query->select('id', 'name')])->paginate(10)]);
     }
 
     public function create()
@@ -35,15 +35,7 @@ class MessageController extends Controller
 
         $message = Message::create($attributes);
 
-        event(
-            new MessageSent(
-                $message->load(
-                    [
-                        'sender' => fn($query) => $query->select('id', 'name')
-                    ]
-                )->toArray()
-            )
-        );
+        event(new MessageSent($message->load(['sender' => fn($query) => $query->select('id', 'name')])->toArray()));
 
         return redirect('/messages/inbox');
     }
