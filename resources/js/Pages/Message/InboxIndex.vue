@@ -4,9 +4,8 @@ import { usePage } from "@inertiajs/vue3";
 
 import MessagePaginatorLink from "../../Components/MessagePaginatorLink.vue";
 import AppLayout from "../../Layouts/AppLayout.vue";
-import HorizontalDivider from "../../Components/HorizontalDivider.vue";
-import MailboxNav from "../../Components/MailboxNav.vue";
 import MessageLink from "../../Components/MessageLink.vue";
+import MessagesLayout from "../../Layouts/MessagesLayout.vue";
 
 const props = defineProps({ messages: Object });
 
@@ -20,7 +19,7 @@ function listenForMessages() {
         "MessageSent",
         (event) => {
             console.log("New message received:", event);
-            messagesToShow.value.push(event.message);
+            messagesToShow.value.unshift(event.message);
         }
     );
 }
@@ -29,12 +28,10 @@ onUnmounted(() => listenForMessages());
 </script>
 <template>
     <AppLayout>
-        <div class="flex">
-            <MailboxNav />
-            <HorizontalDivider />
+        <MessagesLayout>
             <div class="w-full">
                 <div class="font-bold text-3xl">Messages</div>
-                <div class="h-5/6">
+                <div class="min-h-[700px]">
                     <MessageLink
                         v-for="message in messagesToShow"
                         :key="message.id"
@@ -50,6 +47,6 @@ onUnmounted(() => listenForMessages());
                     />
                 </div>
             </div>
-        </div>
+        </MessagesLayout>
     </AppLayout>
 </template>

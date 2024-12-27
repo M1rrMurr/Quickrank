@@ -14,7 +14,7 @@ class MessageController extends Controller
     {
 
         return inertia('Message/InboxIndex', [
-            'messages' => Auth::user()->receivedMessages()->with(['sender' => fn($query) => $query->select('id', 'name')])->paginate(10)
+            'messages' => Auth::user()->receivedMessages()->with(['sender' => fn($query) => $query->select('id', 'name')])->orderBy('created_at', 'desc')->paginate(10)
         ]);
     }
     public function indexSent()
@@ -29,7 +29,7 @@ class MessageController extends Controller
     }
     public function store(Request $request)
     {
-        $attributes = $request->validate(['message' => 'required', 'receiver_id' => 'required']);
+        $attributes = $request->validate(['message' => 'required', 'title' => 'required', 'receiver_id' => 'required']);
 
         $attributes['sender_id'] = Auth::id();
 

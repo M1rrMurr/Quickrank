@@ -2,6 +2,9 @@
 import { useForm } from "@inertiajs/vue3";
 import { Link } from "@inertiajs/vue3";
 
+import TextInput from "../../../Components/TextInput.vue";
+import InputLabel from "../../../Components/InputLabel.vue";
+
 const form = useForm({ email: "zsoli@citromail.hu", password: "" });
 const login = () => form.post("/login");
 </script>
@@ -17,10 +20,10 @@ const login = () => form.post("/login");
                 class="flex flex-col mt-12 border-0 border-y border-secondary space-y-6 py-10"
             >
                 <div class="flex gap-3">
-                    <label class="flex-1 font-semibold" for="email"
-                        >Email Address</label
+                    <InputLabel class="flex-1 font-semibold" for="email"
+                        >Email Address</InputLabel
                     >
-                    <input
+                    <TextInput
                         class="placeholder:italic px-3 py-1 font-semibold text-primary"
                         type="email"
                         id="email"
@@ -30,10 +33,10 @@ const login = () => form.post("/login");
                     />
                 </div>
                 <div class="flex gap-3">
-                    <label class="flex-1 font-semibold" for="password"
-                        >Password</label
+                    <InputLabel class="flex-1 font-semibold" for="password"
+                        >Password</InputLabel
                     >
-                    <input
+                    <TextInput
                         class="placeholder:italic px-3 py-1 font-semibold text-primary"
                         type="password"
                         id="password"
@@ -44,7 +47,7 @@ const login = () => form.post("/login");
                 </div>
                 <div>
                     <Link
-                        class="text-sm text-blueberry font-semibold italic hover:underline"
+                        class="text-sm text-white font-semibold italic hover:underline"
                         href="/register"
                         >Not registered yet? Visit the register page...</Link
                     >

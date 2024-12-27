@@ -24,6 +24,7 @@ class MessageFactory extends Factory
         return [
             'receiver_id' => $firstId,
             'sender_id' => $secondId,
+            'title' => fake()->title(),
             'message' => fake()->realText(),
         ];
     }

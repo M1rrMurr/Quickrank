@@ -28,7 +28,7 @@ const profileButton = ref(null);
             class="absolute left-1/2 -translate-x-1/2 flex items-center"
             href="/"
         >
-            <div class="text-lg font-bold">QuickRank</div>
+            <div class="text-xl text-white font-bold">QuickRank</div>
             <img class="h-10" src="/public/svgs/lightning.svg" />
         </Link>
         <div class="flex gap-3">

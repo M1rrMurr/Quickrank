@@ -13,16 +13,22 @@ const name = {
     sent: props.message.receiver?.name,
     received: props.message.sender?.name,
 };
+const date = new Date(props.message.created_at);
+const formattedDate = date.toLocaleString("en-US");
 </script>
 <template>
     <Link
         href="#"
-        class="border-y block w-full border-primary p-1 hover:border-white"
+        class="border-b block w-full border-secondary p-1 hover:border-textColor"
     >
-        <div class="space-x-2">
+        <div class="flex gap-2">
             <span v-text="prefix[type]" />
-            <span class="text-lg font-semibold" v-text="name[type]" />
+            <span class="text-lg flex-1 font-semibold" v-text="name[type]" />
+            <div v-text="formattedDate" />
         </div>
-        <div class="ml-3" v-text="message.message.slice(0, 150) + ' ...'" />
+        <div
+            class="ml-3 text-white"
+            v-text="message.message.slice(0, 150) + ' ...'"
+        />
     </Link>
 </template>

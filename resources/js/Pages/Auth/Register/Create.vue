@@ -2,6 +2,7 @@
 import { Link } from "@inertiajs/vue3";
 import { useForm, usePage } from "@inertiajs/vue3";
 import TextInput from "../../../Components/TextInput.vue";
+import InputLabel from "../../../Components/InputLabel.vue";
 
 const form = useForm({
     email: "zsoli@citromail.hu",
@@ -17,10 +18,10 @@ const submitForm = () => form.post("/register");
         <form @submit.prevent="submitForm" class="min-w-96">
             <div class="flex items-center justify-center">
                 <img class="h-11 mt-2" src="/public/svgs/lightning.svg" />
-                <span class="text-5xl font-semibold">Register</span>
+                <div class="text-5xl font-bold">Register</div>
             </div>
             <div
-                class="space-y-6 flex flex-col mt-12 py-10 border-0 border-y border-secondary"
+                class="space-y-6 flex flex-col mt-12 py-10 border-0 border-y border-primary/50"
             >
                 <div
                     class="self-end text-red-500"
@@ -28,9 +29,10 @@ const submitForm = () => form.post("/register");
                     v-text="$page.props.errors.email"
                 ></div>
                 <div class="flex gap-3 items-center">
-                    <label class="flex-1 text-lg" for="email">Email</label>
-                    <input
-                        class="w-auto text-primary font-semibold py-1 px-3 placeholder:italic"
+                    <InputLabel class="flex-1 text-lg" for="email"
+                        >Email</InputLabel
+                    >
+                    <TextInput
                         type="email"
                         name="email"
                         id="email"
@@ -39,9 +41,10 @@ const submitForm = () => form.post("/register");
                     />
                 </div>
                 <div class="flex gap-3 items-center">
-                    <label class="flex-1 text-lg" for="name">Username</label>
+                    <InputLabel class="flex-1 text-lg" for="name"
+                        >Username</InputLabel
+                    >
                     <TextInput
-                        class="w-auto text-primary font-semibold py-1 px-3 placeholder:italic"
                         name="name"
                         id="name"
                         placeholder="Username"
@@ -54,9 +57,10 @@ const submitForm = () => form.post("/register");
                     v-text="$page.props.errors.password"
                 ></div>
                 <div class="flex gap-3 items-center">
-                    <label class="flex-1" for="password">Password</label>
-                    <input
-                        class="w-auto text-primary font-semibold py-1 px-3 placeholder:italic"
+                    <InputLabel class="flex-1" for="password"
+                        >Password</InputLabel
+                    >
+                    <TextInput
                         type="password"
                         name="password"
                         id="password"
@@ -65,11 +69,10 @@ const submitForm = () => form.post("/register");
                     />
                 </div>
                 <div class="flex gap-3 items-center">
-                    <label class="flex-1" for="password_confirmation"
-                        >Confirm Your Password</label
+                    <InputLabel class="flex-1" for="password_confirmation"
+                        >Confirm Your Password</InputLabel
                     >
-                    <input
-                        class="w-auto text-primary font-semibold py-1 px-3 placeholder:italic"
+                    <TextInput
                         type="password"
                         name="password_confirmation"
                         id="password_confirmation"
@@ -79,9 +82,9 @@ const submitForm = () => form.post("/register");
                 </div>
                 <div>
                     <Link
-                        class="text-sm text-blueberry font-semibold italic hover:underline"
+                        class="text-sm text-white font-semibold italic hover:underline"
                         href="/login"
-                        >Already have account? Visit the login page...</Link
+                        >Already have account? Go to login page...</Link
                     >
                 </div>
                 <div class="self-end space-x-3">
@@ -92,7 +95,7 @@ const submitForm = () => form.post("/register");
                         Home
                     </Link>
                     <button
-                        class="bg-secondary/50 hover:bg-secondary/80 px-3 py-1 font-medium border border-white"
+                        class="bg-secondary/50 hover:bg-secondary px-3 py-1 font-medium border border-white"
                     >
                         Register
                     </button>
