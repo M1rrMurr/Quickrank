@@ -12,6 +12,10 @@ const props = defineProps({ messages: Object });
                 <div class="text-3xl font-bold">Sent Messages</div>
                 <div class="min-h-[700px]">
                     <MessageLink
+                        :class="{
+                            'bg-secondary/30':
+                                messages.data.indexOf(message) % 2 === 0,
+                        }"
                         v-for="message in messages.data"
                         :key="message.id"
                         :message="message"

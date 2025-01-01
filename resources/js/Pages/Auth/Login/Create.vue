@@ -4,6 +4,7 @@ import { Link } from "@inertiajs/vue3";
 
 import TextInput from "../../../Components/TextInput.vue";
 import InputLabel from "../../../Components/InputLabel.vue";
+import BasicButton from "../../../Components/BasicButton.vue";
 
 const form = useForm({ email: "zsoli@citromail.hu", password: "" });
 const login = () => form.post("/login");
@@ -64,15 +65,11 @@ const login = () => form.post("/login");
                 </div>
                 <div class="flex gap-3 self-end">
                     <Link
-                        class="block bg-secondary/50 hover:bg-secondary/80 px-3 py-1 font-medium"
+                        class="block bg-secondary/50 font-semibold hover:bg-primary/50 px-3 py-1"
                         href="/"
                         >Cancel</Link
                     >
-                    <button
-                        class="bg-secondary/50 hover:bg-secondary/80 px-3 py-1 font-medium border border-white"
-                    >
-                        Log In
-                    </button>
+                    <BasicButton>Log in</BasicButton>
                 </div>
             </div>
         </form>

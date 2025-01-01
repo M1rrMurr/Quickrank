@@ -3,6 +3,7 @@ import { useForm } from "@inertiajs/vue3";
 import MessagesLayout from "../../Layouts/MessagesLayout.vue";
 import AppLayout from "../../Layouts/AppLayout.vue";
 import TextInput from "../../Components/TextInput.vue";
+import BasicButton from "../../Components/BasicButton.vue";
 const form = useForm({ message: "", title: "", receiver_id: null });
 const submit = () => form.post("/messages/store");
 </script>
@@ -38,12 +39,8 @@ const submit = () => form.post("/messages/store");
                     name="message"
                     placeholder="text..."
                 />
-                <div class="self-end">
-                    <button
-                        class="w-fit mt-6 bg-secondary/50 hover:bg-secondary/80 px-3 py-1 font-medium border border-white"
-                    >
-                        Send
-                    </button>
+                <div class="self-end pt-3">
+                    <BasicButton> Send </BasicButton>
                 </div>
             </form>
         </MessagesLayout>

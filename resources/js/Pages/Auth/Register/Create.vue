@@ -3,6 +3,7 @@ import { Link } from "@inertiajs/vue3";
 import { useForm, usePage } from "@inertiajs/vue3";
 import TextInput from "../../../Components/TextInput.vue";
 import InputLabel from "../../../Components/InputLabel.vue";
+import BasicButton from "../../../Components/BasicButton.vue";
 
 const form = useForm({
     email: "zsoli@citromail.hu",
@@ -21,7 +22,7 @@ const submitForm = () => form.post("/register");
                 <div class="text-5xl font-bold">Register</div>
             </div>
             <div
-                class="space-y-6 flex flex-col mt-12 py-10 border-0 border-y border-primary/50"
+                class="space-y-6 flex flex-col mt-12 py-10 border-0 border-y border-secondary"
             >
                 <div
                     class="self-end text-red-500"
@@ -94,11 +95,7 @@ const submitForm = () => form.post("/register");
                     >
                         Home
                     </Link>
-                    <button
-                        class="bg-secondary/50 hover:bg-secondary px-3 py-1 font-medium border border-white"
-                    >
-                        Register
-                    </button>
+                    <BasicButton> Register </BasicButton>
                 </div>
             </div>
         </form>

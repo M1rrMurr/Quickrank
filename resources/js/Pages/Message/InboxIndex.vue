@@ -33,6 +33,10 @@ onUnmounted(() => listenForMessages());
                 <div class="font-bold text-3xl">Messages</div>
                 <div class="min-h-[700px]">
                     <MessageLink
+                        :class="{
+                            'bg-secondary/30':
+                                messagesToShow.indexOf(message) % 2 === 0,
+                        }"
                         v-for="message in messagesToShow"
                         :key="message.id"
                         :message="message"
