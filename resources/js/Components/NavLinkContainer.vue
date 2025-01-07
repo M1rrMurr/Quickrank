@@ -9,7 +9,7 @@ const pageProps = usePage();
         <NavLink
             href="/coaches"
             :currentComponent="pageProps.component"
-            component="Couches/Index"
+            component="Coach/Index"
             >Coaches</NavLink
         >
         <NavLink>Link</NavLink>

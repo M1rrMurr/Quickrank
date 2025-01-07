@@ -10,7 +10,7 @@ import MessagesLayout from "../../Layouts/MessagesLayout.vue";
 const props = defineProps({ messages: Object });
 
 const messagesToShow = ref(props.messages.data);
-
+console.log(messagesToShow.value.length === 10);
 const page = usePage();
 const userId = computed(() => page.props.auth.user.id);
 
@@ -19,6 +19,9 @@ function listenForMessages() {
         "MessageSent",
         (event) => {
             console.log("New message received:", event);
+            if (messagesToShow.value.length === 10) {
+                messagesToShow.value.pop();
+            }
             messagesToShow.value.unshift(event.message);
         }
     );
@@ -30,7 +33,6 @@ onUnmounted(() => listenForMessages());
     <AppLayout>
         <MessagesLayout>
             <div class="w-full">
-                <div class="font-bold text-3xl">Messages</div>
                 <div class="min-h-[700px]">
                     <MessageLink
                         :class="{

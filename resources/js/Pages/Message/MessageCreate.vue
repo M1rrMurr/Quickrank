@@ -4,7 +4,7 @@ import MessagesLayout from "../../Layouts/MessagesLayout.vue";
 import AppLayout from "../../Layouts/AppLayout.vue";
 import TextInput from "../../Components/TextInput.vue";
 import BasicButton from "../../Components/BasicButton.vue";
-const form = useForm({ message: "", title: "", receiver_id: null });
+const form = useForm({ message: "", subject: "", receiver_id: null });
 const submit = () => form.post("/messages/store");
 </script>
 <template>
@@ -24,7 +24,7 @@ const submit = () => form.post("/messages/store");
                 <label class="font-semibold" for="subject">Subject</label>
                 <TextInput
                     class="bg-bg"
-                    v-model="form.title"
+                    v-model="form.subject"
                     type="text"
                     id="subject"
                     name="subject"

@@ -7,7 +7,7 @@ const form = useForm({});
 </script>
 <template>
     <div
-        class="absolute right-0 w-52 bg-secondary px-2 py-2 rounded-md mr-3 space-y-3 border border-white/10"
+        class="absolute right-0 w-52 mt-1 bg-secondary px-2 py-2 rounded-md mr-3 space-y-3 border border-white/10"
         ref="dropdown"
     >
         <Link

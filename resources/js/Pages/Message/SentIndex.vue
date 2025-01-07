@@ -9,7 +9,6 @@ const props = defineProps({ messages: Object });
     <AppLayout>
         <MessagesLayout>
             <div class="space-y-1">
-                <div class="text-3xl font-bold">Sent Messages</div>
                 <div class="min-h-[700px]">
                     <MessageLink
                         :class="{

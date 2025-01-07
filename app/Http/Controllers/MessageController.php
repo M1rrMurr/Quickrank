@@ -29,11 +29,9 @@ class MessageController extends Controller
     }
     public function store(Request $request)
     {
-        $attributes = $request->validate(['message' => 'required', 'title' => 'required', 'receiver_id' => 'required']);
+        $attributes = $request->validate(['message' => 'required', 'subject' => 'required', 'receiver_id' => 'required']);
 
-        $attributes['sender_id'] = Auth::id();
-
-        $message = Message::create($attributes);
+        $message = Auth::user()->sentMessages()->create($attributes);
 
         event(new MessageSent($message->load(['sender' => fn($query) => $query->select('id', 'name')])->toArray()));
 

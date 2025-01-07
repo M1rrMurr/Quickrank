@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('title');
+            $table->string('subject');
             $table->foreignId('sender_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('receiver_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('message');

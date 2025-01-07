@@ -52,8 +52,9 @@ class DatabaseSeeder extends Seeder
         $tags = collect($this->tagsArray)->map(fn($tag) => Tag::create($tag));
         $games = collect($this->gamesArray)->map(fn($game) => Game::create($game));
 
-        //my dummy user
+        //my dummy users
         User::create(['email' => 'zsoli@citromail.hu', 'password' => 'password', 'name' => 'zsoli', 'is_booster' => false]);
+        User::create(['email' => 'zsoli2@citromail.hu', 'password' => 'password', 'name' => 'zsoli2', 'is_booster' => false]);
         User::factory(50)->create();
         $boosters = User::factory(20)->booster()->create();
 
