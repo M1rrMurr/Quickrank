@@ -11,13 +11,14 @@ const showModal = () => (show.value = !show.value);
     <AppLayout>
         <div class="flex items-end">
             <div class="text-sm leading-none">hello</div>
+            <div class="border-0 border-l h-6 border-white"></div>
             <div class="text-lg leading-none">hello</div>
+            <div class="border-0 border-l border-white"></div>
             <div class="text-xl leading-none">hello</div>
         </div>
         <div class="relative">
             <BasicButton @click="showModal">Gonb</BasicButton>
             <div v-if="show" class="fixed inset-0">
-                <!-- Backdrop -->
                 <div
                     @click="show = !show"
                     class="absolute inset-0 bg-black backdrop-blur-sm bg-opacity-50 grid place-items-center"

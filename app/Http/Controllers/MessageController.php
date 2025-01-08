@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Events\MessageSent;
+use Illuminate\Validation\ValidationException;
 
 class MessageController extends Controller
 {
@@ -29,7 +30,16 @@ class MessageController extends Controller
     }
     public function store(Request $request)
     {
-        $attributes = $request->validate(['message' => 'required', 'subject' => 'required', 'receiver_id' => 'required']);
+
+        $attributes = $request->validate(['message' => 'required', 'subject' => 'required', 'email' => 'required']);
+
+        $receiver = User::query()->where('email', '=', $attributes['email'])->first();
+
+        if (!$receiver) {
+            throw ValidationException::withMessages(['Receiver cannot find by the given email']);
+        }
+
+        $attributes['receiver_id'] = $receiver->id;
 
         $message = Auth::user()->sentMessages()->create($attributes);
 

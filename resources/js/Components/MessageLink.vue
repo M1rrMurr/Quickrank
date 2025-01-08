@@ -23,8 +23,9 @@ const formattedDate = date.toLocaleString("en-US");
                     class="text-lg font-semibold leading-none"
                     v-text="name[type]"
                 ></div>
+                <div class="mx-3 text-lg font-semibold leading-none">-</div>
                 <div
-                    class="flex-1 text-sm font-semibold pl-6 leading-none"
+                    class="flex-1 text-sm font-semibold leading-none"
                     v-text="message.subject"
                 ></div>
                 <div class="text-sm leading-none" v-text="formattedDate"></div>

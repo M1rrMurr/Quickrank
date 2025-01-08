@@ -4,7 +4,7 @@ import MessagesLayout from "../../Layouts/MessagesLayout.vue";
 import AppLayout from "../../Layouts/AppLayout.vue";
 import TextInput from "../../Components/TextInput.vue";
 import BasicButton from "../../Components/BasicButton.vue";
-const form = useForm({ message: "", subject: "", receiver_id: null });
+const form = useForm({ message: "", subject: "", email: "" });
 const submit = () => form.post("/messages/store");
 </script>
 <template>
@@ -12,14 +12,14 @@ const submit = () => form.post("/messages/store");
         <MessagesLayout>
             <div class="text-3xl font-semibold">New Message</div>
             <form class="w-[700px] flex flex-col" @submit.prevent="submit">
-                <label class="font-semibold" for="receiver">To:</label>
+                <label class="font-semibold" for="email">To:</label>
                 <TextInput
                     class="bg-bg"
-                    v-model="form.receiver_id"
-                    type="text"
-                    id="receiver"
-                    name="receiver"
-                    placeholder="receiver"
+                    v-model="form.email"
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="receiver email"
                 />
                 <label class="font-semibold" for="subject">Subject</label>
                 <TextInput
@@ -42,6 +42,12 @@ const submit = () => form.post("/messages/store");
                 <div class="self-end pt-3">
                     <BasicButton> Send </BasicButton>
                 </div>
+                <div
+                    v-for="(error, i) in $page.props.errors"
+                    :key="i"
+                    v-text="error"
+                    class="text-red-500 text-sm"
+                ></div>
             </form>
         </MessagesLayout>
     </AppLayout>
