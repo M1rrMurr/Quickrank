@@ -6,15 +6,15 @@ const props = defineProps({
 });
 
 const name = {
-    sent: props.message.receiver?.name,
-    received: props.message.sender?.name,
+    sent: props.message.receiver?.username,
+    received: props.message.sender?.username,
 };
 const date = new Date(props.message.created_at);
 const formattedDate = date.toLocaleString("en-US");
 </script>
 <template>
     <Link
-        href="#"
+        :href="`/message/${message.id}`"
         class="border-b block w-full border-secondary p-1 hover:border-textColor"
     >
         <div class="">
@@ -31,9 +31,19 @@ const formattedDate = date.toLocaleString("en-US");
                 <div class="text-sm leading-none" v-text="formattedDate"></div>
             </div>
         </div>
-        <div
-            class="ml-3 text-white"
-            v-text="message.message.slice(0, 150) + ' ...'"
-        ></div>
+        <div class="ml-3 flex gap-3">
+            <img
+                class="h-6"
+                :src="
+                    message.is_opened
+                        ? '/svgs/mail-opened.svg'
+                        : '/svgs/mail.svg'
+                "
+            />
+            <div
+                class="text-white"
+                v-text="message.message.slice(0, 150) + ' ...'"
+            ></div>
+        </div>
     </Link>
 </template>

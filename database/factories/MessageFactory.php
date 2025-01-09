@@ -26,6 +26,7 @@ class MessageFactory extends Factory
             'sender_id' => $secondId,
             'subject' => fake()->realText(10),
             'message' => fake()->realText(),
+            'is_opened' => false,
         ];
     }
 }

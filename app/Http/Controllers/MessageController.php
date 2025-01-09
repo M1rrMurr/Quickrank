@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Events\MessageSent;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
 
 class MessageController extends Controller
@@ -15,13 +16,13 @@ class MessageController extends Controller
     {
 
         return inertia('Message/InboxIndex', [
-            'messages' => Auth::user()->receivedMessages()->with(['sender' => fn($query) => $query->select('id', 'name')])->orderBy('created_at', 'desc')->paginate(10)
+            'messages' => Auth::user()->receivedMessages()->with(['sender' => fn($query) => $query->select('id', 'username')])->orderBy('created_at', 'desc')->paginate(10)
         ]);
     }
     public function indexSent()
     {
 
-        return inertia('Message/SentIndex', ['messages' => Auth::user()->sentMessages()->with(['receiver' => fn($query) => $query->select('id', 'name')])->paginate(10)]);
+        return inertia('Message/SentIndex', ['messages' => Auth::user()->sentMessages()->with(['receiver' => fn($query) => $query->select('id', 'username')])->paginate(10)]);
     }
 
     public function create()
@@ -43,8 +44,27 @@ class MessageController extends Controller
 
         $message = Auth::user()->sentMessages()->create($attributes);
 
-        event(new MessageSent($message->load(['sender' => fn($query) => $query->select('id', 'name')])->toArray()));
+        event(new MessageSent($message->load(['sender' => fn($query) => $query->select('id', 'username')])->toArray()));
 
         return redirect('/messages/inbox');
+    }
+
+    public function show(Message $message)
+    {
+        //dd(Auth::id(), $message->receiver_id);
+
+        Gate::authorize('showMessage',  $message);
+        return inertia('Message/Show', ['message' => $message->load(
+            [
+                'receiver' => fn($query) => $query->select('id', 'username'),
+                'sender' => fn($query) => $query->select('id', 'username')
+            ]
+        )]);
+    }
+
+    public function update(Message $message)
+    {
+
+        $message->update();
     }
 }

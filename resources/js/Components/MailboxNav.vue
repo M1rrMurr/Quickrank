@@ -16,7 +16,7 @@ import { Link } from "@inertiajs/vue3";
                 }"
                 class="flex gap-1 transition-all group-hover:translate-x-5"
             >
-                <img src="/public/svgs/mail-opened.svg" alt="mail" />Inbox
+                <img src="/public/svgs/mailbox.svg" alt="mail" />Inbox
             </div>
         </Link>
         <Link
@@ -30,7 +30,7 @@ import { Link } from "@inertiajs/vue3";
                 }"
                 class="flex gap-1 group-hover:translate-x-5 transition-all"
             >
-                <img src="/public/svgs/mail.svg" alt="mail" />Sent
+                <img src="/public/svgs/mail-forward.svg" alt="mail" />Sent
             </div>
         </Link>
         <div class="">

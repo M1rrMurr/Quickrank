@@ -31,7 +31,7 @@ const form = useForm({});
             :href="`/messages/inbox`"
         >
             <div class="flex gap-3">
-                <img src="/public/svgs/mail-opened.svg" alt="" />
+                <img src="/public/svgs/mailbox.svg" alt="" />
                 <span>Inbox</span>
             </div>
         </Link>

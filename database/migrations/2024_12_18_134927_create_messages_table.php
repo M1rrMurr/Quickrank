@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('sender_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('receiver_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('message');
+            $table->boolean('is_opened')->default(false);
         });
     }
 

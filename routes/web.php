@@ -32,3 +32,5 @@ Route::get('/messages/sent', [MessageController::class, 'indexSent'])->middlewar
 
 Route::get('/messages/create', [MessageController::class, 'create'])->middleware('auth');
 Route::post('/messages/store', [MessageController::class, 'store'])->middleware('auth');
+
+Route::get('/message/{message}', [MessageController::class, 'show'])->middleware('auth');
