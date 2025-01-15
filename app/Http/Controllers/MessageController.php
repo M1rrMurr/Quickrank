@@ -7,11 +7,13 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Events\MessageSent;
+use App\Services\MessageService;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
 
 class MessageController extends Controller
 {
+    public function __construct(protected MessageService $messageService) {}
     public function indexInbox()
     {
 
@@ -51,9 +53,9 @@ class MessageController extends Controller
 
     public function show(Message $message)
     {
-        //dd(Auth::id(), $message->receiver_id);
-
         Gate::authorize('showMessage',  $message);
+
+        $this->messageService->open($message);
         return inertia('Message/Show', ['message' => $message->load(
             [
                 'receiver' => fn($query) => $query->select('id', 'username'),

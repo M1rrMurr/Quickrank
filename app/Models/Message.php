@@ -15,6 +15,7 @@ class Message extends Model
         'receiver_id',
         'sender_id',
         'subject',
+        'is_opened',
 
     ];
 
