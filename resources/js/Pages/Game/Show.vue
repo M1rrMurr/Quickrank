@@ -26,11 +26,11 @@ const props = defineProps({ game: Object });
                 </form>
                 <form class="" action="">
                     <InputLabel for="language">Language</InputLabel>
-                    <Select class="block" id="language" name="language">
+                    <select class="block" id="language" name="language">
                         <option value="">hun</option>
                         <option value="">de</option>
                         <option value="">ru</option>
-                    </Select>
+                    </select>
                 </form>
             </div>
             <div class="border-0 border-b border-secondary"></div>
@@ -38,7 +38,7 @@ const props = defineProps({ game: Object });
                 <div class="text-xl">Coaches</div>
                 <div class="flex gap-4 flex-wrap">
                     <CoachCard
-                        v-for="coach in game.users"
+                        v-for="coach in game.coaches"
                         :key="coach.id"
                         :coach="coach"
                     />

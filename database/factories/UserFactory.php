@@ -44,7 +44,7 @@ class UserFactory extends Factory
         ]);
     }
 
-    public function booster()
+    public function coach()
     {
         return $this->state(fn(array $attributes) => ['is_booster' => true, 'avatar' => 'https://imagenes.elpais.com/resizer/v2/LXI4JS5I3RBR7CVPGSSASDIAHE.jpg?auth=aadadaf547f243b38a27344665db3645bc8922fa8c8a63858256125b74859ba5&width=1200']);
     }

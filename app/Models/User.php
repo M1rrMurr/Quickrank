@@ -62,4 +62,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class, 'receiver_id');
     }
+
+    public function coach()
+    {
+        return $this->hasOne(Coach::class);
+    }
 }

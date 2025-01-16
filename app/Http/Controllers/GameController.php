@@ -16,9 +16,9 @@ class GameController extends Controller
     public function show($name)
     {
 
-        $game = Game::query()->where('name', '=', $name)->firstOrFail();
+        $game = Game::query()->where('name', '=', $name)->with(['coaches.coach.languages'])->firstOrFail();
 
 
-        return inertia('Game/Show', ['game' => $game->load('users')]);
+        return inertia('Game/Show', ['game' => $game]);
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\Game;
-use App\Models\User;
+use App\Models\Coach;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Language;
 
 return new class extends Migration
 {
@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('games_coaches', function (Blueprint $table) {
+        Schema::create('coach_language', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Game::class);
-            $table->integer('price_per_hour');
             $table->timestamps();
+            $table->foreignIdFor(Language::class);
+            $table->foreignIdFor(Coach::class);
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('games_coaches');
+        //
     }
 };

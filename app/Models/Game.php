@@ -12,7 +12,7 @@ class Game extends Model
 
 
 
-    public function users()
+    public function coaches()
     {
         return $this->belongsToMany(User::class, 'games_coaches');
     }

@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Coach>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Booster>
  */
 class CoachFactory extends Factory
 {
@@ -17,7 +17,7 @@ class CoachFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'description' => fake()->realText(50),
         ];
     }
 }
