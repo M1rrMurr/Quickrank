@@ -4,7 +4,7 @@ const props = defineProps({ link: Object });
 </script>
 <template>
     <component
-        class="text-textColor flex items-center hover:scale-110 transition-transform"
+        class="text-slate-800 flex items-center hover:scale-110 transition-transform"
         :is="link.url ? Link : 'span'"
         :href="link.url"
         :class="{

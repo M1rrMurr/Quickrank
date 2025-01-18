@@ -15,11 +15,12 @@ export default {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                primary: "#040D12",
-                textColor: "#93B1A6",
-                secondary: "#183D3D",
-                blueberry: "#9290C3",
-                bg: "#5C8374",
+                background: "#FBF5DD",
+
+                primary: "#16404D",
+                secondary: "#A6CDC6",
+                textColor: "#16404D",
+                button: "#DDA853",
             },
         },
     },

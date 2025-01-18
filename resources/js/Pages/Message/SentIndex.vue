@@ -12,7 +12,7 @@ const props = defineProps({ messages: Object });
                 <div class="min-h-[700px]">
                     <MessageLink
                         :class="{
-                            'bg-secondary/30':
+                            'bg-slate-200/50':
                                 messages.data.indexOf(message) % 2 === 0,
                         }"
                         v-for="message in messages.data"

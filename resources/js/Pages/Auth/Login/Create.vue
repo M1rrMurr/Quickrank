@@ -18,14 +18,14 @@ const login = () => form.post("/login");
                 <span class="text-5xl font-semibold">Log In</span>
             </div>
             <div
-                class="flex flex-col mt-12 border-0 border-y border-secondary space-y-6 py-10"
+                class="flex flex-col mt-12 border-0 border-y border-slate-200 space-y-6 py-10"
             >
                 <div class="flex gap-3">
                     <InputLabel class="flex-1 font-semibold" for="email"
                         >Email Address</InputLabel
                     >
                     <TextInput
-                        class="placeholder:italic px-3 py-1 font-semibold text-primary"
+                        class="placeholder:italic px-3 py-1 font-semibold"
                         type="email"
                         id="email"
                         name="email"
@@ -38,7 +38,7 @@ const login = () => form.post("/login");
                         >Password</InputLabel
                     >
                     <TextInput
-                        class="placeholder:italic px-3 py-1 font-semibold text-primary"
+                        class="placeholder:italic px-3 py-1 font-semibold"
                         type="password"
                         id="password"
                         name="password"
@@ -48,9 +48,9 @@ const login = () => form.post("/login");
                 </div>
                 <div>
                     <Link
-                        class="text-sm text-white font-semibold italic hover:underline"
+                        class="text-sm text-sky-500 font-semibold italic hover:underline"
                         href="/register"
-                        >Not registered yet? Visit the register page...</Link
+                        >Not registered yet? Go to register page...</Link
                     >
                 </div>
                 <div
@@ -65,7 +65,7 @@ const login = () => form.post("/login");
                 </div>
                 <div class="flex gap-3 self-end">
                     <Link
-                        class="block bg-secondary/50 font-semibold hover:bg-primary/50 px-3 py-1"
+                        class="bg-violet-500/50 text-slate-100 text-sm font-semibold hover:bg-violet-500/80 px-3 py-1 inline-block"
                         href="/"
                         >Cancel</Link
                     >

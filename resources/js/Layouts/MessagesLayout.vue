@@ -7,7 +7,7 @@ import HorizontalDivider from "../Components/HorizontalDivider.vue";
         <MailboxNav />
         <HorizontalDivider />
         <div class="w-full">
-            <h1 class="text-2xl font-semibold text-white mb-6">Messages</h1>
+            <h1 class="text-2xl font-semibold text-slate-800 mb-6">Messages</h1>
             <slot />
         </div>
     </div>

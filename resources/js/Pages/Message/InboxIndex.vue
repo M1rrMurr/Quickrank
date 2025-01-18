@@ -23,7 +23,7 @@ function listenForMessages() {
                 messagesToShow.value.pop();
             }
             messagesToShow.value.unshift(event.message);
-        }
+        },
     );
 }
 onMounted(() => listenForMessages());
@@ -36,7 +36,7 @@ onUnmounted(() => listenForMessages());
                 <div class="min-h-[700px]">
                     <MessageLink
                         :class="{
-                            'bg-secondary/30':
+                            'bg-slate-200/50':
                                 messagesToShow.indexOf(message) % 2 === 0,
                         }"
                         v-for="message in messagesToShow"

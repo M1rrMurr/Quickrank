@@ -3,11 +3,13 @@ import { Link } from "@inertiajs/vue3";
 </script>
 <template>
     <div
-        class="space-y-3 bg-gradient-to-b from-secondary to -primary px-3 py-3 pr-5 rounded"
+        class="space-y-3 bg-gradient-to-b from-indigo-500 to-sky-500 px-3 py-3 pr-5 rounded"
     >
         <Link
-            :class="{ 'bg-primary': $page.component === 'Message/InboxIndex' }"
-            class="group block pl-2 pr-12 py-1 rounded hover:bg-primary transition-all"
+            :class="{
+                'bg-sky-500': $page.component === 'Message/InboxIndex',
+            }"
+            class="group block pl-2 pr-12 py-1 rounded hover:bg-sky-500 transition-all"
             href="/messages/inbox"
         >
             <div
@@ -20,8 +22,8 @@ import { Link } from "@inertiajs/vue3";
             </div>
         </Link>
         <Link
-            :class="{ 'bg-primary': $page.component === 'Message/SentIndex' }"
-            class="block group pl-2 pr-12 py-1 rounded hover:bg-primary transition-all"
+            :class="{ 'bg-sky-500': $page.component === 'Message/SentIndex' }"
+            class="block group pl-2 pr-12 py-1 rounded hover:bg-sky-500 transition-all"
             href="/messages/sent"
         >
             <div

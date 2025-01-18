@@ -22,7 +22,7 @@ const submitForm = () => form.post("/register");
                 <div class="text-5xl font-bold">Register</div>
             </div>
             <div
-                class="space-y-6 flex flex-col mt-12 py-10 border-0 border-y border-secondary"
+                class="space-y-6 flex flex-col mt-12 py-10 border-0 border-y border-slate-200"
             >
                 <div
                     class="self-end text-red-500"
@@ -83,19 +83,19 @@ const submitForm = () => form.post("/register");
                 </div>
                 <div>
                     <Link
-                        class="text-sm text-white font-semibold italic hover:underline"
+                        class="text-sm text-sky-500 font-semibold italic hover:underline"
                         href="/login"
                         >Already have account? Go to login page...</Link
                     >
                 </div>
-                <div class="self-end space-x-3">
+                <div class="flex gap-3 self-end">
                     <Link
-                        class="bg-secondary/50 hover:bg-secondary/80 px-3 py-1 font-medium inline-block"
+                        class="bg-violet-500/50 hover:bg-violet-500/80 px-3 py-1 font-medium inline-block"
                         href="/"
                     >
                         Home
                     </Link>
-                    <BasicButton> Register </BasicButton>
+                    <BasicButton>Register</BasicButton>
                 </div>
             </div>
         </form>

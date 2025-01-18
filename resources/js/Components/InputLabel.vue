@@ -1,3 +1,3 @@
 <template>
-    <label class="flex-1 text-white font-semibold"><slot /></label>
+    <label class="flex-1 text-black font-semibold"><slot /></label>
 </template>

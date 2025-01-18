@@ -36,7 +36,7 @@ const props = defineProps({ game: Object });
             <div class="border-0 border-b border-secondary"></div>
             <div>
                 <div class="text-xl">Coaches</div>
-                <div class="flex gap-4 flex-wrap">
+                <div class="flex gap-7 flex-wrap justify-evenly">
                     <CoachCard
                         v-for="coach in game.coaches"
                         :key="coach.id"

@@ -14,7 +14,7 @@ const profileButton = ref(null);
 </script>
 <template>
     <div
-        class="flex justify-between items-center border-0 border-b border-secondary px-3 py-2"
+        class="flex justify-between items-center border-0 border-b border-violet-100 px-3 py-2"
     >
         <div class="flex gap-2">
             <div class="text-lg font-semibold">Menu</div>

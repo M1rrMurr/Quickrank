@@ -1,7 +1,11 @@
 <template>
     <button
-        class="bg-secondary hover:bg-primary/50 px-3 py-1 font-semibold border border-white"
+        class="group relative inline-flex bg-white border border-black w-20"
     >
-        <slot />
+        <span
+            class="flex w-full items-center justify-center -translate-x-1 translate-y-1 bg-sky-500 text-sm font-semibold text-white group-hover:translate-x-0 group-hover:-translate-y-0 transition-all px-3 py-1"
+        >
+            <slot />
+        </span>
     </button>
 </template>
