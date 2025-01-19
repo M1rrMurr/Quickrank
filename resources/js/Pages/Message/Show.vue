@@ -8,14 +8,14 @@ const props = defineProps({ message: Object });
     <AppLayout>
         <MessagesLayout>
             <div>
-                <span>From: </span>
+                <span class="font-semibold">From: </span>
                 <MessageParticipant :displayName="message.sender.username" />
             </div>
             <div>
-                <span>To: </span>
+                <span class="font-semibold">To: </span>
                 <MessageParticipant :displayName="message.receiver.username" />
             </div>
-            <div class="" v-text="message.message"></div>
+            <div class="font-medium" v-text="message.message"></div>
         </MessagesLayout>
     </AppLayout>
 </template>

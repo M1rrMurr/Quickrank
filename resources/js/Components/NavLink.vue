@@ -8,7 +8,7 @@ defineProps({
 <template>
     <Link
         href="#"
-        class="hover:bg-slate-200/10 py-2 px-3 font-semibold"
+        class="hover:bg-gradient-to-r from-indigo-500 to-sky-500 py-2 px-3 font-semibold transition-colors duration-200"
         :class="{
             'border-b-2': component === currentComponent,
         }"

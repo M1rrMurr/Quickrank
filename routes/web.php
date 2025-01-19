@@ -12,13 +12,13 @@ Route::get('/', [GameController::class, 'index'])->name('Home');
 
 Route::get('/coaches', [CoachController::class, 'index']);
 
-Route::get('/register', [RegisterController::class, 'create']);
+Route::get('/register', [RegisterController::class, 'create'])->middleware(['guest']);
 
 Route::post('/register', [RegisterController::class, 'store']);
 
 Route::delete('/logout', [LoginController::class, 'destroy']);
 
-Route::get('/login', [LoginController::class, 'create'])->name('login');
+Route::get('/login', [LoginController::class, 'create'])->middleware(['guest'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
 
 Route::get('/profile', [ProfileController::class, 'show'])->middleware(['auth']);

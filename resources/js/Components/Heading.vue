@@ -19,7 +19,7 @@ const profileButton = ref(null);
         <div class="flex gap-2">
             <div class="text-lg font-semibold">Menu</div>
             <input
-                class="w-20 px-3 py-1 focus:w-52 duration-300 text-white bg-secondary font-semibold"
+                class="w-20 px-3 py-1 focus:w-52 duration-300 text-white bg-slate-300 font-semibold"
                 type="text"
                 placeholder="Search..."
             />
@@ -28,7 +28,7 @@ const profileButton = ref(null);
             class="absolute left-1/2 -translate-x-1/2 flex items-center"
             href="/"
         >
-            <div class="text-xl text-white font-bold">QuickRank</div>
+            <div class="text-xl text-slate-800 font-bold">QuickRank</div>
             <img class="h-10" src="/public/svgs/lightning.svg" />
         </Link>
         <div class="flex gap-3">

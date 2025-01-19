@@ -3,24 +3,27 @@ const props = defineProps({ coach: Object });
 import BasicButton from "./BasicButton.vue";
 import TextInput from "./TextInput.vue";
 import { useForm } from "@inertiajs/vue3";
+const flags = { hu: "🇭🇺" };
 import { ref } from "vue";
 const showInput = ref(false);
 </script>
 <template>
     <div
-        class="relative w-60 rounded-md rounded-t-md"
+        class="relative w-52 rounded-md rounded-t-md shadow-md shadow-sky-500"
         :class="{ 'z-10': showInput, 'rounded-none': showInput }"
     >
-        <img class="size-60 rounded-t-md" :src="coach.avatar" />
+        <div class="relative overflow-hidden h-32">
+            <img class="rounded-t-md" :src="coach.avatar" />
+        </div>
         <div
-            class="space-y-2 bg-gradient-to-b from-indigo-500 px-1 from-10% to-sky-500 to-90%"
+            class="space-y-2 bg-gradient-to-b from-slate-500 px-1 from-10% to-sky-500 to-90%"
         >
+            <div class="flex gap-3 items-center">
+                <div class="text-white font-semibold" v-text="coach.username" />
+                <div v-text="flags.hu"></div>
+            </div>
             <div
-                class="text-lg text-white font-semibold"
-                v-text="coach.username"
-            />
-            <div
-                class="text-sm text-white min-h-20"
+                class="text-sm text-white min-h-20 font-semibold"
                 v-text="coach.coach.description"
             ></div>
             <div class="flex gap-3 pb-5 ml-3">
@@ -36,9 +39,12 @@ const showInput = ref(false);
             enter-active-class="transition ease-in duration-150"
             enter-from-class="opacity-0 -translate-y-4"
             enter-to-class="opacity-100 translate-y-0"
+            leave-active-class="transition ease-in duration-150"
+            leave-from-class="opacity-100 translate-y-0"
+            leave-to-class="opacity-0 -tranlate-y-4"
         >
             <form
-                class="absolute bg-sky-500 w-full pt-4 pb-3"
+                class="absolute bg-sky-500 px-2 pt-4 pb-3 shadow-md shadow-sky-500"
                 v-if="showInput"
                 action=""
             >
