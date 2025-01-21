@@ -3,7 +3,7 @@ const props = defineProps({ coach: Object });
 import BasicButton from "./BasicButton.vue";
 import TextInput from "./TextInput.vue";
 import { useForm } from "@inertiajs/vue3";
-const flags = { hu: "🇭🇺" };
+const flags = { hu: "🇭🇺", en: "🇬🇧", ro: "🇷🇴", ru: "🇷🇺" };
 import { ref } from "vue";
 const showInput = ref(false);
 </script>
@@ -18,9 +18,13 @@ const showInput = ref(false);
         <div
             class="space-y-2 bg-gradient-to-b from-slate-500 px-1 from-10% to-sky-500 to-90%"
         >
+            <div class="text-white font-semibold" v-text="coach.username" />
             <div class="flex gap-3 items-center">
-                <div class="text-white font-semibold" v-text="coach.username" />
-                <div v-text="flags.hu"></div>
+                <div
+                    v-for="language in coach.coach.languages"
+                    :key="language.id"
+                    v-text="flags[language.iso_code]"
+                ></div>
             </div>
             <div
                 class="text-sm text-white min-h-20 font-semibold"

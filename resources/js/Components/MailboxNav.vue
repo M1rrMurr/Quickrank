@@ -1,40 +1,23 @@
 <script setup>
 import { Link } from "@inertiajs/vue3";
+import MailNavButton from "./MailNavButton.vue";
 </script>
 <template>
     <div
         class="space-y-3 bg-gradient-to-b from-indigo-500 to-sky-500 px-3 py-3 pr-5 rounded"
     >
-        <Link
-            :class="{
-                'bg-sky-500': $page.component === 'Message/InboxIndex',
-            }"
-            class="group block pl-2 pr-12 py-1 rounded hover:bg-sky-500 transition-all"
+        <MailNavButton
             href="/messages/inbox"
+            component="Message/InboxIndex"
+            icon="/svgs/mailbox.svg"
+            >Inbox</MailNavButton
         >
-            <div
-                :class="{
-                    'translate-x-5': $page.component === 'Message/InboxIndex',
-                }"
-                class="flex gap-1 transition-all group-hover:translate-x-5"
-            >
-                <img src="/public/svgs/mailbox.svg" alt="mail" />Inbox
-            </div>
-        </Link>
-        <Link
-            :class="{ 'bg-sky-500': $page.component === 'Message/SentIndex' }"
-            class="block group pl-2 pr-12 py-1 rounded hover:bg-sky-500 transition-all"
+        <MailNavButton
             href="/messages/sent"
+            icon="/svgs/mail-forward.svg"
+            component="Message/SentIndex"
+            >Sent</MailNavButton
         >
-            <div
-                :class="{
-                    'translate-x-5': $page.component === 'Message/SentIndex',
-                }"
-                class="flex gap-1 group-hover:translate-x-5 transition-all"
-            >
-                <img src="/public/svgs/mail-forward.svg" alt="mail" />Sent
-            </div>
-        </Link>
         <div class="">
             <Link href="/messages/create" class="font-semibold"
                 >New Message</Link
