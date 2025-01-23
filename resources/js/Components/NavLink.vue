@@ -8,9 +8,9 @@ defineProps({
 <template>
     <Link
         href="#"
-        class="hover:bg-gradient-to-r from-indigo-500 to-sky-500 py-2 px-3 font-semibold transition-colors duration-200"
+        class="hover:bg-sky-500 py-2 px-3 font-semibold transition-all duration-200 hover:text-white"
         :class="{
-            'border-b-2': component === currentComponent,
+            'border-b-2 border-slate-400': component === currentComponent,
         }"
         ><slot
     /></Link>

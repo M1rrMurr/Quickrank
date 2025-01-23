@@ -20,7 +20,7 @@ const login = () => form.post("/login");
             <div
                 class="flex flex-col mt-12 border-0 border-y border-slate-200 space-y-6 py-10"
             >
-                <div class="flex gap-3">
+                <div class="flex items-center gap-3">
                     <InputLabel class="flex-1 font-semibold" for="email"
                         >Email Address</InputLabel
                     >
@@ -33,7 +33,7 @@ const login = () => form.post("/login");
                         placeholder="Your Email"
                     />
                 </div>
-                <div class="flex gap-3">
+                <div class="flex items-center gap-3">
                     <InputLabel class="flex-1 font-semibold" for="password"
                         >Password</InputLabel
                     >

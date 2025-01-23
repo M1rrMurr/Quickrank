@@ -11,7 +11,7 @@ const toggleShowDetails = () => (showDetails.value = !showDetails.value);
 </script>
 <template>
     <Link
-        class="relative hover:scale-110 transition-all duration-300"
+        class="relative hover:scale-110 overflow-hidden transition-all duration-300"
         :href="`/games/${name}`"
     >
         <div

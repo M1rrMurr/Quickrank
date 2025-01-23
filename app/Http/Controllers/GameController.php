@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
+
 class GameController extends Controller
 {
     public function index()
@@ -14,19 +15,23 @@ class GameController extends Controller
         return inertia('Home', ['games' => Game::with('tags')->get()]);
     }
 
-    public function show($name)
+    public function show(Request $request, $name)
     {
-        $lang = 'ro';
+        $coach = $request->input('coachName');
+        $lang = $request->input('selected') === 'all' ? null : $request->input('selected');
         $game = Game::query()->where('name', '=', $name)->with([
-            'coaches' => function ($query) use ($lang) {
-                $query->select('users.id', 'users.avatar', 'users.username')->when($lang, function (Builder $query, $lang) {
-                    $query->whereHas('coach.languages', function (Builder $query,) use ($lang) {
+            'coaches' => function ($query) use ($coach, $lang) {
+                $query->select('users.id', 'users.avatar', 'users.username')->when($coach, function (Builder $query, $coach) {
+                    $query->where('username', 'like', "%{$coach}%");
+                });
+                $query->when($lang, function (Builder $query, $lang) {
+                    $query->whereHas('coach.languages', function (Builder $query) use ($lang) {
                         $query->where('iso_code', '=', $lang);
                     });
                 });
             },
             'coaches.coach.languages'
         ])->firstOrFail();
-        return inertia('Game/Show', ['game' => $game]);
+        return inertia('Game/Show', ['game' => $game, 'selectFilter' => $request->only('selected'), 'nameFilter' => $request->only('coachName')]);
     }
 }

@@ -15,7 +15,7 @@ const props = defineProps({ component: String, icon: String });
             }"
             class="font-semibold flex gap-1 transition-all group-hover:translate-x-5"
         >
-            <img :src="icon" alt="mail" />Inbox
+            <img :src="icon" alt="mail" /><slot />
         </div>
     </Link>
 </template>

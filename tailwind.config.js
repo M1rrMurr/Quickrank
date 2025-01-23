@@ -22,6 +22,9 @@ export default {
                 textColor: "#16404D",
                 button: "#DDA853",
             },
+            fontFamily: {
+                Roboto: ["Roboto", "sans-serif"],
+            },
         },
     },
     plugins: [],
