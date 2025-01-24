@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [GameController::class, 'index'])->name('Home');
 
 Route::get('/coaches', [CoachController::class, 'index']);
+Route::get('/coaches/{coach}', [CoachController::class, 'show']);
 
 Route::get('/register', [RegisterController::class, 'create'])->middleware(['guest']);
 

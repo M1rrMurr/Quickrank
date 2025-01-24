@@ -21,7 +21,7 @@ class GameController extends Controller
         $lang = $request->input('selected') === 'all' ? null : $request->input('selected');
         $game = Game::query()->where('name', '=', $name)->with([
             'coaches' => function ($query) use ($coach, $lang) {
-                $query->select('users.id', 'users.avatar', 'users.username')->when($coach, function (Builder $query, $coach) {
+                $query->select('users.id', 'users.username', 'users.avatar')->when($coach, function (Builder $query, $coach) {
                     $query->where('username', 'like', "%{$coach}%");
                 });
                 $query->when($lang, function (Builder $query, $lang) {
@@ -32,6 +32,7 @@ class GameController extends Controller
             },
             'coaches.coach.languages'
         ])->firstOrFail();
+
         return inertia('Game/Show', ['game' => $game, 'selectFilter' => $request->only('selected'), 'nameFilter' => $request->only('coachName')]);
     }
 }

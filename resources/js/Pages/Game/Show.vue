@@ -15,14 +15,15 @@ const props = defineProps({
     selectFilter: Object,
     nameFilter: Object,
 });
-const nameInput = ref(null);
-const form = useForm({ selected: props.selectFilter.selected ?? "all" });
-const nameForm = useForm({ coachName: props.nameFilter.coachName ?? null });
+
 const coachFound = props.game.coaches.length > 0;
-const filterBySelect = () => form.get(`/games/${props.game.name}`);
+const form = useForm({ selected: props.selectFilter.selected ?? "all" });
+const filterBySelect = () =>
+    form.get(`/games/${props.game.name}`, { preserveScroll: true });
+
+const nameForm = useForm({ coachName: props.nameFilter.coachName ?? null });
 const filterByName = () => {
-    nameForm.get(`/games/${props.game.name}`);
-    sessionStorage.setItem("filteredByName", true);
+    nameForm.get(`/games/${props.game.name}`, { preserveScroll: true });
 };
 
 watch(
@@ -92,6 +93,7 @@ watch(
                 <Link
                     class="group flex items-center justify-center gap-1"
                     :href="`/games/${game.name}`"
+                    preserve-scroll
                     ><span
                         class="text-slate-600 group-hover:text-red-500 transition-colors font-semibold text-sm"
                         >Clear Filter</span

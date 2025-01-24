@@ -20,4 +20,8 @@ class Coach extends Model
     {
         return $this->belongsToMany(Language::class, 'coach_language');
     }
+    public function coachingSessions()
+    {
+        return $this->hasMany(CoachingSession::class);
+    }
 }

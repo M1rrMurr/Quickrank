@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Coach;
+use App\Models\CoachingSession;
 use App\Models\Game;
 use App\Models\Language;
 use App\Models\Message;
@@ -83,5 +84,13 @@ class DatabaseSeeder extends Seeder
         foreach ($coaches as $coach) {
             $coach->games()->attach($games->random(rand(1, 3))->pluck('id')->toArray(), ['price_per_hour' => rand(10, 35)]);
         }
+
+        CoachingSession::create([
+            'start' => '2025-01-30 10:00:00',
+            'end' => '2025-01-30 11:00:00',
+            'coach_id' => 1,
+            'user_id' => 1,
+            'game_id' => 1
+        ]);
     }
 }

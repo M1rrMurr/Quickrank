@@ -1,6 +1,7 @@
 <script setup>
 const props = defineProps({ coach: Object });
 import BasicButton from "./BasicButton.vue";
+import NavLink from "./NavLink.vue";
 import TextInput from "./TextInput.vue";
 import { useForm } from "@inertiajs/vue3";
 const flags = { hu: "🇭🇺", en: "🇬🇧", ro: "🇷🇴", ru: "🇷🇺" };
@@ -36,7 +37,7 @@ const showInput = ref(false);
                     class="bg-indigo-500"
                     >Message</BasicButton
                 >
-                <BasicButton class="text-2xl">Profile</BasicButton>
+                <NavLink :href="`/coaches/${coach.coach.id}`">Profile</NavLink>
             </div>
         </div>
         <Transition
