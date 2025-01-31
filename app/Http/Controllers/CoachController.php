@@ -15,7 +15,7 @@ class CoachController extends Controller
 
     public function show(Coach $coach)
     {
-        $coach->load(['coachingSessions', 'user:id,avatar,username']);
+        $coach->load(['coachingSessions', 'user:id,avatar,username,email', 'user.games']);
 
         return inertia('Coach/CoachShow', ['coach' => $coach]);
     }

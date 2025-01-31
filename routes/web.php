@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CoachController;
+use App\Http\Controllers\CoachingSessionController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
@@ -35,3 +36,5 @@ Route::get('/messages/create', [MessageController::class, 'create'])->middleware
 Route::post('/messages/store', [MessageController::class, 'store'])->middleware('auth');
 
 Route::get('/message/{message}', [MessageController::class, 'show'])->middleware('auth');
+
+Route::get('/sessions', [CoachingSessionController::class, 'index']);
