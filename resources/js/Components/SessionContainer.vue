@@ -1,7 +1,8 @@
 <script setup>
-const props = defineProps({ sessions: Object });
+const props = defineProps({ sessions: Object, sessionsDate: String });
+console.log(props.sessionsDate);
 import { Transition } from "vue";
-import SessionTimestamp from "./SessionTimestamp.vue";
+import SessionComponent from "./SessionComponent.vue";
 </script>
 <template>
     <Transition
@@ -13,20 +14,20 @@ import SessionTimestamp from "./SessionTimestamp.vue";
         leave-to-class="opacity-0 -translate-y-4"
     >
         <div
+            v-if="sessions.length"
             class="bg-slate-300 shadow-md mx-1 my-1 mt-6 py-4 px-1"
-            v-show="sessions.length > 1"
         >
-            <div class="font-semibold text-slate-500">Sessions</div>
+            <div class="font-semibold text-slate-500">
+                Sessions on
+                <span class="text-slate-100" v-text="sessionsDate" />
+            </div>
             <div class="flex gap-1 mt-3">
-                <div
-                    class="flex flex-wrap items-center justify-center gap-1 bg-slate-500 px-22 py-1 rounded-sm"
+                <!-- sessions -->
+                <SessionComponent
                     v-for="session in sessions"
                     :key="session.id"
-                >
-                    <SessionTimestamp :date="session.start" />
-                    <span class="text-violet-300"> &dash; </span>
-                    <SessionTimestamp :date="session.end" />
-                </div>
+                    :session="session"
+                />
             </div>
         </div>
     </Transition>

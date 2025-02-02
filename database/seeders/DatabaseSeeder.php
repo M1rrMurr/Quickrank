@@ -82,15 +82,14 @@ class DatabaseSeeder extends Seeder
         }
 
         foreach ($coaches as $coach) {
-            $coach->games()->attach($games->random(rand(1, 3))->pluck('id')->toArray(), ['price_per_hour' => rand(10, 35)]);
+            $gameIds = $games->random(rand(1, 3))->pluck('id')->toArray();
+            foreach ($gameIds as $id) {
+                $coach->games()->attach($id, ['price_per_hour' => rand(10, 35)]);
+            }
+            // create sessions based on existing coaches and their games
+            CoachingSession::factory(30)->create(['coach_id' => $coach->coach->id, 'game_id' => function () use ($coach) {
+                return $coach->games->random()->id;
+            }]);
         }
-
-        CoachingSession::create([
-            'start' => '2025-01-30 10:00:00',
-            'end' => '2025-01-30 11:00:00',
-            'coach_id' => 1,
-            'user_id' => 1,
-            'game_id' => 1
-        ]);
     }
 }

@@ -9,4 +9,20 @@ class CoachingSession extends Model
 {
     /** @use HasFactory<\Database\Factories\CoachingSessionFactory> */
     use HasFactory;
+
+    public function game()
+    {
+        return $this->belongsTo(Game::class);
+    }
+
+    public function coach()
+    {
+        return $this->belongsTo(Coach::class);
+    }
+
+    public function customer()
+
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

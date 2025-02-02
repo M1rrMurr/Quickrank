@@ -1,6 +1,8 @@
 <script setup>
+import GameCardSecondary from "../../Components/GameCardSecondary.vue";
 import CalendarComponent from "../../Components/CalendarComponent.vue";
 import AppLayout from "../../Layouts/AppLayout.vue";
+import { Link } from "@inertiajs/vue3";
 const props = defineProps({ coach: Object });
 </script>
 <template>
@@ -14,25 +16,24 @@ const props = defineProps({ coach: Object });
                         class="w-28 h-28 shadow-md rounded-full"
                         :src="coach.user.avatar"
                     />
-                    <div>
+                    <div class="text-slate-700">
                         <div v-text="coach.user.username"></div>
                         <div v-text="coach.user.email"></div>
                     </div>
                 </div>
                 <!-- games coached by the user -->
+                <div class="bg-slate-200 py-3 px-5 mt-6 w-4/5">
+                    <div class="text-lg font-semibold text-slate-700 mb-6">
+                        <span v-text="coach.user.username.split(' ')[0]"></span>
+                        <span>'s games</span>
+                    </div>
 
-                <div class="bg-slate-300 py-2 px-3 mt-6">
-                    <div class="flex flex-wrap gap-2">
-                        <div
-                            class="flex w-56 bg-slate-600"
+                    <div class="flex gap-2 flex-wrap">
+                        <GameCardSecondary
                             v-for="game in coach.user.games"
+                            :game="game"
                             :key="game.id"
-                        >
-                            <img class="w-24" :src="game.image" />
-                            <div>
-                                <div v-text="game.name"></div>
-                            </div>
-                        </div>
+                        />
                     </div>
                 </div>
             </div>

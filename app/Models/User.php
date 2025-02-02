@@ -50,7 +50,7 @@ class User extends Authenticatable
     }
     public function games()
     {
-        return $this->belongsToMany(Game::class, 'games_coaches');
+        return $this->belongsToMany(Game::class, 'games_coaches')->withPivot('price_per_hour');
     }
 
     public function sentMessages()

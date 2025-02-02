@@ -19,7 +19,7 @@ class CoachingSessionFactory extends Factory
      */
     public function definition(): array
     {
-        $start = Carbon::instance(fake()->dateTimeThisMonth())->setMinutes(0);
+        $start = Carbon::instance(fake()->dateTimeBetween('first day of this month', 'last day of this month'))->setMinutes(0);
         $end = Carbon::instance($start)->addHours(1);
         $gameIds = Game::pluck('id')->toArray();
         $userIds = User::pluck('id')->toArray();

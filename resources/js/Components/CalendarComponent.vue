@@ -44,9 +44,9 @@ const sundays = computed(() => days.value.filter((day) => day.getDay() === 0));
 
 // for the ajax request
 const sessions = ref([]);
-
+const sessionsDate = ref(null);
 function fetchSessions(date) {
-    console.log(date.toLocaleDateString("en-CA"), props.coachId);
+    sessionsDate.value = date.toDateString();
     axios
         .get("/sessions", {
             params: {
@@ -55,7 +55,6 @@ function fetchSessions(date) {
             },
         })
         .then((response) => {
-            console.log(response.data);
             sessions.value = response.data;
         });
 }
@@ -131,6 +130,6 @@ function fetchSessions(date) {
                 />
             </div>
         </div>
-        <SessionContainer :sessions="sessions" />
+        <SessionContainer :sessions="sessions" :sessionsDate="sessionsDate" />
     </div>
 </template>
