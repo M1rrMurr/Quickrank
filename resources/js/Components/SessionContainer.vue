@@ -1,6 +1,9 @@
 <script setup>
-const props = defineProps({ sessions: Object, sessionsDate: String });
-console.log(props.sessionsDate);
+const props = defineProps({
+    sessions: Object,
+    sessionsDate: String,
+    games: Object,
+});
 import { Transition } from "vue";
 import SessionComponent from "./SessionComponent.vue";
 </script>
@@ -27,6 +30,7 @@ import SessionComponent from "./SessionComponent.vue";
                     v-for="session in sessions"
                     :key="session.id"
                     :session="session"
+                    :games="games"
                 />
             </div>
         </div>

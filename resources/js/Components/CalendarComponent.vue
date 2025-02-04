@@ -6,9 +6,8 @@ import SessionContainer from "./SessionContainer.vue";
 
 import { getDays } from "../composables/useCalendarDates";
 
-const props = defineProps({ coachId: Number });
+const props = defineProps({ coachId: Number, games: Object });
 const today = ref(new Date());
-
 const month = computed(() =>
     today.value.toLocaleString("en-Gb", { month: "long" }),
 );
@@ -130,6 +129,10 @@ function fetchSessions(date) {
                 />
             </div>
         </div>
-        <SessionContainer :sessions="sessions" :sessionsDate="sessionsDate" />
+        <SessionContainer
+            :sessions="sessions"
+            :sessionsDate="sessionsDate"
+            :games="games"
+        />
     </div>
 </template>

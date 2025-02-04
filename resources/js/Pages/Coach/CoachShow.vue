@@ -2,7 +2,7 @@
 import GameCardSecondary from "../../Components/GameCardSecondary.vue";
 import CalendarComponent from "../../Components/CalendarComponent.vue";
 import AppLayout from "../../Layouts/AppLayout.vue";
-import { Link } from "@inertiajs/vue3";
+
 const props = defineProps({ coach: Object });
 </script>
 <template>
@@ -38,7 +38,10 @@ const props = defineProps({ coach: Object });
                 </div>
             </div>
             <div class="flex flex-col items-center mt-6">
-                <CalendarComponent :coachId="coach.id" />
+                <CalendarComponent
+                    :coachId="coach.id"
+                    :games="coach.user.games"
+                />
             </div>
         </div>
     </AppLayout>

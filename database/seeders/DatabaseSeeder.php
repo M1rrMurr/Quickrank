@@ -65,12 +65,14 @@ class DatabaseSeeder extends Seeder
         $languages = collect($this->langsArray)->map(fn($lang) => Language::create($lang));
 
         //my dummy users
-        User::create(['email' => 'zsoli@citromail.hu', 'password' => 'password', 'username' => 'zsoli', 'is_booster' => false]);
+        $zsoli = User::create(['email' => 'zsoli@citromail.hu', 'password' => 'password', 'username' => 'zsoli', 'is_booster' => true]);
         User::create(['email' => 'zsoli2@citromail.hu', 'password' => 'password', 'username' => 'zsoli2', 'is_booster' => false]);
-        User::factory(50)->create();
 
+        User::factory(50)->create();
         Message::factory(200)->create();
+
         $coaches = User::factory(20)->coach()->create();
+        $coaches->push($zsoli);
 
         foreach ($coaches as $coach) {
             $coachInfo = Coach::factory()->create(['user_id' => $coach->id]);
@@ -86,10 +88,10 @@ class DatabaseSeeder extends Seeder
             foreach ($gameIds as $id) {
                 $coach->games()->attach($id, ['price_per_hour' => rand(10, 35)]);
             }
-            // create sessions based on existing coaches and their games
-            CoachingSession::factory(30)->create(['coach_id' => $coach->coach->id, 'game_id' => function () use ($coach) {
-                return $coach->games->random()->id;
-            }]);
+            // create OPEN sessions based on existing coaches and their games
+            CoachingSession::factory(30)->create(['coach_id' => $coach->coach->id, 'user_id' => null, 'game_id' => null, 'status' => 'open']);
+
+            CoachingSession::factory(100)->create(['coach_id' => $coach->coach->id, 'game_id' => fn() => $coach->games->random()->id]);
         }
     }
 }

@@ -1,7 +1,9 @@
 <script setup>
 import LogoutSvg from "./Svgs/LogoutSvg.vue";
 import MailboxSvg from "./Svgs/MailboxSvg.vue";
-import { Link, useForm } from "@inertiajs/vue3";
+import { useForm } from "@inertiajs/vue3";
+import ProfileLink from "./Profile/ProfileLink.vue";
+import ProfileDivider from "./Profile/ProfileDivider.vue";
 function logout() {
     form.delete("/logout");
 }
@@ -13,13 +15,24 @@ const form = useForm({});
         ref="dropdown"
     >
         <div class="p-0.5 bg-white rounded-md">
-            <Link
-                class="hover:bg-gradient-to-r h-8 from-indigo-400 to-sky-400 py-1 px-3 font-semibold rounded block text-sm"
-                :href="`/profile`"
-            >
+            <ProfileLink :href="`/profile`">
                 <span v-text="$page.props.auth.user.email"></span>
-            </Link>
-            <div class="border-0 border-b border-slate-200 mx-2"></div>
+            </ProfileLink>
+            <ProfileDivider />
+            <ProfileLink href="/messages/inbox">
+                <div class="flex gap-3 items-center text-sm">
+                    <MailboxSvg class="h-6 text-black" />
+                    <span>Inbox</span>
+                </div>
+            </ProfileLink>
+            <ProfileDivider />
+            <ProfileLink href="/dashboard"
+                ><div class="flex gap-3 items-center">
+                    <MailboxSvg class="h-6 text-black" />
+                    <span>Dashboard</span>
+                </div></ProfileLink
+            >
+            <ProfileDivider />
             <!-- logout -->
             <form
                 class="hover:bg-gradient-to-r from-indigo-400 to-sky-400 py-1 px-3 font-semibold rounded"
@@ -29,17 +42,6 @@ const form = useForm({});
                     <LogoutSvg class="text-black w-6" />Log out
                 </button>
             </form>
-            <div class="border-0 border-b border-slate-200 mx-2"></div>
-
-            <Link
-                class="hover:bg-gradient-to-r from-indigo-400 to-sky-400 py-1 px-3 font-semibold rounded block"
-                :href="`/messages/inbox`"
-            >
-                <div class="flex gap-3 items-center text-sm">
-                    <MailboxSvg class="h-6 text-black" />
-                    <span>Inbox</span>
-                </div>
-            </Link>
         </div>
     </div>
 </template>

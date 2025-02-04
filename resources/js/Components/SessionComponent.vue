@@ -1,11 +1,31 @@
 <script setup>
 import SessionTimestamp from "./SessionTimestamp.vue";
-import { ref, onMounted, onUnmounted } from "vue";
+import TextInput from "./TextInput.vue";
+import InputLabel from "./InputLabel.vue";
 
-const props = defineProps({ session: Object });
+import { ref, onMounted, onUnmounted, computed } from "vue";
+import { useForm, usePage } from "@inertiajs/vue3";
+
+const props = defineProps({ session: Object, games: Object });
 const trigger = ref(null);
 const sessionDropdown = ref(null);
 const showDetails = ref(false);
+const page = usePage();
+const selectedGameName = ref(null);
+const selectedGame = computed(
+    () =>
+        props.games.find((game) => game.name === selectedGameName.value) || {},
+);
+
+const form = useForm({
+    user_id: page.props.auth?.user.id,
+    game_id: computed(() => selectedGame.value?.id || null),
+});
+
+function submitForm() {
+    form.post("/sessions/apply");
+}
+
 function handleOutsideClick(e) {
     if (sessionDropdown.value && trigger.value) {
         if (
@@ -38,19 +58,31 @@ onUnmounted(() => document.removeEventListener("click", handleOutsideClick));
             v-if="showDetails"
             class="absolute mt-2 bg-gradient-to-br from-slate-700 to-slate-300 border border-slate-200 pr-4 shadow-md"
         >
-            <div class="flex gap-2">
-                <img class="h-32" :src="session.game.image" />
-                <div class="text-slate-300 font-semibold">
-                    <div class="" v-text="session.game.name"></div>
-                    <div class="space-x-2">
-                        <span class="text-slate-800">Coach: </span>
-                        <span v-text="session.coach.user.username"></span>
-                    </div>
-                    <div class="space-x-2">
-                        <span class="text-slate-800">Customer:</span>
-                        <span v-text="session.customer.username"></span>
-                    </div>
+            <form class="px-5 py-2" @submit.prevent="submitForm">
+                <div class="flex items-center gap-3">
+                    <InputLabel>Comment</InputLabel>
+                    <TextInput />
                 </div>
+                <div class="flex items-center gap-3">
+                    <InputLabel>Select a Game</InputLabel>
+                    <select v-model="selectedGameName">
+                        <option
+                            v-for="game in games"
+                            :key="game.id"
+                            v-text="game.name"
+                        />
+                    </select>
+                </div>
+                <button>zsa</button>
+            </form>
+            <!-- show price and game name -->
+            <div class="flex">
+                <div>Session Name:</div>
+                <div v-text="selectedGameName"></div>
+            </div>
+            <div class="flex">
+                <div>Price:</div>
+                <div v-text="selectedGame.pivot?.price_per_hour" />
             </div>
         </div>
     </div>

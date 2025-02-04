@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Coach;
 use App\Models\Game;
 use App\Models\User;
 use Carbon\Carbon;
@@ -23,12 +24,15 @@ class CoachingSessionFactory extends Factory
         $end = Carbon::instance($start)->addHours(1);
         $gameIds = Game::pluck('id')->toArray();
         $userIds = User::pluck('id')->toArray();
+        $coachIds = Coach::pluck('id')->toArray();
+        $status = ['pending', 'closed', 'in_progress', 'completed', 'canceled'];
         return [
             'start' => $start,
             'end' => $end,
-            'coach_id' => 1,
+            'coach_id' => fake()->randomElement($coachIds),
             'user_id' => fake()->randomElement($userIds),
-            'game_id' => fake()->randomElement($gameIds)
+            'game_id' => fake()->randomElement($gameIds),
+            'status' => fake()->randomElement($status)
         ];
     }
 }

@@ -19,9 +19,10 @@ return new class extends Migration
             $table->timestamps();
             $table->dateTime('start');
             $table->dateTime('end');
-            $table->foreignIdFor(Coach::class);
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Game::class);
+            $table->foreignIdFor(Coach::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class)->nullable()->constrained()->nullOnDelete();
+            $table->foreignIdFor(Game::class)->nullable()->constrained()->nullOnDelete();
+            $table->enum('status', ['open', 'pending', 'closed', 'in_progress', 'completed', 'canceled'])->default('open');
         });
     }
 

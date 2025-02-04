@@ -4,9 +4,11 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\CoachingSessionController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SessionApplyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [GameController::class, 'index'])->name('Home');
@@ -38,3 +40,8 @@ Route::post('/messages/store', [MessageController::class, 'store'])->middleware(
 Route::get('/message/{message}', [MessageController::class, 'show'])->middleware('auth');
 
 Route::get('/sessions', [CoachingSessionController::class, 'index']);
+
+Route::get('/dashboard', [DashboardController::class, 'create'])->middleware('auth');
+
+
+Route::post('sessions/apply', [SessionApplyController::class, 'store']);
