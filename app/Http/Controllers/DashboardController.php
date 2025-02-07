@@ -8,11 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    public function create()
+    public function index()
     {
-        $sessions = Auth::user()->coach->coachingSessions;
+        $sessions = Auth::user()->coach->coachingSessions()->with(['game', 'sessionApplies.game', 'sessionApplies.customer'])->orderBy('start')->get();
 
-        dd($sessions);
-        return inertia('Dashboard/DashboardCreate', ['sessions' => $sessions]);
+        return inertia('Dashboard/DashboardIndex', ['sessions' => $sessions]);
     }
 }

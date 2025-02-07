@@ -26,8 +26,8 @@ class CoachingSession extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function sessionApplys()
+    public function sessionApplies()
     {
-        return $this->hasMany(SessionApply::class);
+        return $this->hasMany(SessionApply::class,);
     }
 }

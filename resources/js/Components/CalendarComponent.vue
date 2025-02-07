@@ -54,8 +54,10 @@ function fetchSessions(date) {
             },
         })
         .then((response) => {
+            console.log(response.data);
             sessions.value = response.data;
-        });
+        })
+        .catch((err) => console.error(err.message));
 }
 </script>
 <template>

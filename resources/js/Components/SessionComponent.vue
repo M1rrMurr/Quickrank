@@ -1,38 +1,21 @@
 <script setup>
-import SessionTimestamp from "./SessionTimestamp.vue";
-import TextInput from "./TextInput.vue";
-import InputLabel from "./InputLabel.vue";
+import { ref, onMounted, onUnmounted } from "vue";
 
-import { ref, onMounted, onUnmounted, computed } from "vue";
-import { useForm, usePage } from "@inertiajs/vue3";
+import SessionApplyForm from "./SessionApplyForm.vue";
+import SessionTimestamp from "./SessionTimestamp.vue";
 
 const props = defineProps({ session: Object, games: Object });
 const trigger = ref(null);
-const sessionDropdown = ref(null);
-const showDetails = ref(false);
-const page = usePage();
-const selectedGameName = ref(null);
-const selectedGame = computed(
-    () =>
-        props.games.find((game) => game.name === selectedGameName.value) || {},
-);
-
-const form = useForm({
-    user_id: page.props.auth?.user.id,
-    game_id: computed(() => selectedGame.value?.id || null),
-});
-
-function submitForm() {
-    form.post("/sessions/apply");
-}
+const sessionApply = ref(null);
+const showApply = ref(false);
 
 function handleOutsideClick(e) {
-    if (sessionDropdown.value && trigger.value) {
+    if (sessionApply.value && trigger.value) {
         if (
             !trigger.value.contains(e.target) &&
-            !sessionDropdown.value.contains(e.target)
+            !sessionApply.value.$el.contains(e.target)
         ) {
-            showDetails.value = false;
+            showApply.value = false;
         }
     }
 }
@@ -45,45 +28,33 @@ onUnmounted(() => document.removeEventListener("click", handleOutsideClick));
 <template>
     <div
         class="bg-slate-500 px-22 py-1 rounded-sm cursor-pointer"
-        @click="showDetails = true"
+        @click="
+            () => {
+                showApply = false;
+                showApply = true;
+            }
+        "
     >
         <div ref="trigger" class="flex items-center justify-center gap-1">
             <SessionTimestamp :date="session.start" />
             <span class="text-violet-300"> &dash; </span>
             <SessionTimestamp :date="session.end" />
         </div>
-
-        <div
-            ref="sessionDropdown"
-            v-if="showDetails"
-            class="absolute mt-2 bg-gradient-to-br from-slate-700 to-slate-300 border border-slate-200 pr-4 shadow-md"
+        <Transition
+            enter-active-class="transition ease-in duration-300"
+            enter-from-class="opacity-0"
+            enter-to-class="opacity-100"
+            leave-active-class="transtion esae-in duration-300"
+            leave-from-class="opacity-100"
+            leave-to-class="opacity-0"
         >
-            <form class="px-5 py-2" @submit.prevent="submitForm">
-                <div class="flex items-center gap-3">
-                    <InputLabel>Comment</InputLabel>
-                    <TextInput />
-                </div>
-                <div class="flex items-center gap-3">
-                    <InputLabel>Select a Game</InputLabel>
-                    <select v-model="selectedGameName">
-                        <option
-                            v-for="game in games"
-                            :key="game.id"
-                            v-text="game.name"
-                        />
-                    </select>
-                </div>
-                <button>zsa</button>
-            </form>
-            <!-- show price and game name -->
-            <div class="flex">
-                <div>Session Name:</div>
-                <div v-text="selectedGameName"></div>
-            </div>
-            <div class="flex">
-                <div>Price:</div>
-                <div v-text="selectedGame.pivot?.price_per_hour" />
-            </div>
-        </div>
+            <SessionApplyForm
+                @close-apply="showApply = false"
+                ref="sessionApply"
+                v-if="showApply"
+                :games="games"
+                :sessionId="session.id"
+            />
+        </Transition>
     </div>
 </template>

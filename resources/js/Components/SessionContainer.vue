@@ -4,7 +4,6 @@ const props = defineProps({
     sessionsDate: String,
     games: Object,
 });
-import { Transition } from "vue";
 import SessionComponent from "./SessionComponent.vue";
 </script>
 <template>
@@ -24,7 +23,7 @@ import SessionComponent from "./SessionComponent.vue";
                 Sessions on
                 <span class="text-slate-100" v-text="sessionsDate" />
             </div>
-            <div class="flex gap-1 mt-3">
+            <div class="flex flex-wrap gap-1 mt-3">
                 <!-- sessions -->
                 <SessionComponent
                     v-for="session in sessions"
