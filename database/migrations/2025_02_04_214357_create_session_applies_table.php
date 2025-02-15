@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignIdFor(CoachingSession::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Game::class)->constrained()->cascadeOnDelete();
+            $table->enum('status', ['pending', 'rejected', 'accepted'])->default('pending');
         });
     }
 

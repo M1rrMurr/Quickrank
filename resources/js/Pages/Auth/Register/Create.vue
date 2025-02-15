@@ -9,7 +9,7 @@ const form = useForm({
     email: "zsoli@citromail.hu",
     password: "",
     password_confirmation: "",
-    name: "",
+    username: "",
 });
 
 const submitForm = () => form.post("/register");
@@ -42,14 +42,14 @@ const submitForm = () => form.post("/register");
                     />
                 </div>
                 <div class="flex gap-3 items-center">
-                    <InputLabel class="flex-1 text-lg" for="name"
+                    <InputLabel class="flex-1 text-lg" for="username"
                         >Username</InputLabel
                     >
                     <TextInput
-                        name="name"
-                        id="name"
+                        name="username"
+                        id="username"
                         placeholder="Username"
-                        v-model="form.name"
+                        v-model="form.username"
                     />
                 </div>
                 <div

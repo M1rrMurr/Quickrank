@@ -41,7 +41,7 @@ Route::get('/message/{message}', [MessageController::class, 'show'])->middleware
 
 Route::get('/sessions', [CoachingSessionController::class, 'index']);
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'can:isCoach']);
+Route::patch('/dashboard', [SessionApplyController::class, 'update'])->middleware('auth');
 
-
-Route::post('sessions/apply', [SessionApplyController::class, 'store'])->middleware('auth');
+Route::post('/sessions/apply', [SessionApplyController::class, 'store'])->middleware('auth');

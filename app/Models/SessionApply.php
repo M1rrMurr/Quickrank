@@ -10,7 +10,7 @@ class SessionApply extends Model
     /** @use HasFactory<\Database\Factories\SessionApplyFactory> */
     use HasFactory;
 
-    protected $fillable = ['user_id', 'game_id', 'coaching_session_id'];
+    protected $fillable = ['user_id', 'game_id', 'coaching_session_id', 'status'];
 
     public function game()
     {
@@ -20,5 +20,10 @@ class SessionApply extends Model
     public function customer()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function coachingSession()
+    {
+        return $this->belongsTo(CoachingSession::class);
     }
 }

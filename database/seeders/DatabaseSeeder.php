@@ -66,13 +66,13 @@ class DatabaseSeeder extends Seeder
 
         //my dummy users
         $zsoli = User::create(['email' => 'zsoli@citromail.hu', 'password' => 'password', 'username' => 'zsoli', 'is_booster' => true]);
-        User::create(['email' => 'zsoli2@citromail.hu', 'password' => 'password', 'username' => 'zsoli2', 'is_booster' => false]);
+        $zsoli2 = User::create(['email' => 'zsoli2@citromail.hu', 'password' => 'password', 'username' => 'zsoli2', 'is_booster' => true]);
 
         User::factory(50)->create();
         Message::factory(200)->create();
 
         $coaches = User::factory(20)->coach()->create();
-        $coaches->push($zsoli);
+        $coaches->push($zsoli, $zsoli2);
 
         foreach ($coaches as $coach) {
             $coachInfo = Coach::factory()->create(['user_id' => $coach->id]);

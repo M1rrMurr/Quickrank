@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\CoachingSession;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +31,14 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::define('showMessage', function ($user, Message $message) {
             return $user->id === $message->receiver_id || $user->id === $message->sender_id;
+        });
+
+        Gate::define('isCoach', function ($user) {
+            return $user->is_booster;
+        });
+
+        Gate::define('editSession', function ($user, CoachingSession $coachingSession) {
+            return $coachingSession->coach->user->is($user);
         });
     }
 }
