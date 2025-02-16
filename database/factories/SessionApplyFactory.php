@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\CoachingSession;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +18,23 @@ class SessionApplyFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            //
-        ];
+
+        return [];
+    }
+
+    public function forSession($session)
+    {
+        return $this->state(function (array $attributes) use ($session) {
+            $sessionCoach = $session->coach->user;
+            $users = User::all();
+
+            $customerIds = $users->except([$sessionCoach->id])->pluck('id');
+            return [
+                'coaching_session_id' => $session->id,
+                'user_id' => fake()->randomElement($customerIds),
+                'game_id' => fake()->randomElement($sessionCoach->games)->id,
+                'status' => 'pending',
+            ];
+        });
     }
 }

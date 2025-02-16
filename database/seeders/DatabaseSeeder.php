@@ -7,6 +7,7 @@ use App\Models\CoachingSession;
 use App\Models\Game;
 use App\Models\Language;
 use App\Models\Message;
+use App\Models\SessionApply;
 use App\Models\Tag;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -89,8 +90,11 @@ class DatabaseSeeder extends Seeder
                 $coach->games()->attach($id, ['price_per_hour' => rand(10, 35)]);
             }
             // create OPEN sessions based on existing coaches and their games
-            CoachingSession::factory(30)->create(['coach_id' => $coach->coach->id, 'user_id' => null, 'game_id' => null, 'status' => 'open']);
+            $openSessions = CoachingSession::factory(30)->create(['coach_id' => $coach->coach->id, 'user_id' => null, 'game_id' => null, 'status' => 'open']);
 
+            foreach ($openSessions as $session) {
+                SessionApply::factory(rand(2, 5))->forSession($session)->create();
+            }
             CoachingSession::factory(100)->create(['coach_id' => $coach->coach->id, 'game_id' => fn() => $coach->games->random()->id]);
         }
     }
