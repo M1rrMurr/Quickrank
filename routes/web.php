@@ -10,6 +10,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SessionApplyController;
 use Illuminate\Support\Facades\Route;
+use Monolog\Handler\RotatingFileHandler;
 
 Route::get('/', [GameController::class, 'index'])->name('Home');
 
@@ -42,6 +43,8 @@ Route::get('/message/{message}', [MessageController::class, 'show'])->middleware
 Route::get('/sessions', [CoachingSessionController::class, 'index']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'can:isCoach']);
-Route::patch('/dashboard', [SessionApplyController::class, 'update'])->middleware('auth');
+Route::patch('/dashboard/accept-session-apply', [DashboardController::class, 'updateSessionApply'])->middleware('auth');
+Route::patch('/dashboard/close-session', [DashboardController::class, 'closeCoachingSession'])->middleware('auth');
+Route::delete('/dashboard/destroy-session', [DashboardController::class, 'destroySession'])->middleware('auth');
 
 Route::post('/sessions/apply', [SessionApplyController::class, 'store'])->middleware('auth');

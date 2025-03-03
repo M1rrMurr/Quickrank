@@ -25,7 +25,7 @@ class CoachingSessionFactory extends Factory
         $gameIds = Game::pluck('id')->toArray();
         $userIds = User::pluck('id')->toArray();
         $coachIds = Coach::pluck('id')->toArray();
-        $status = ['pending', 'closed', 'in_progress', 'completed', 'canceled'];
+        $status = ['closed', 'in_progress', 'completed', 'canceled'];
         return [
             'start' => $start,
             'end' => $end,

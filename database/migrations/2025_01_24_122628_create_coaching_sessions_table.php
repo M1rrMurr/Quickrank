@@ -22,7 +22,8 @@ return new class extends Migration
             $table->foreignIdFor(Coach::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(User::class)->nullable()->constrained()->nullOnDelete();
             $table->foreignIdFor(Game::class)->nullable()->constrained()->nullOnDelete();
-            $table->enum('status', ['open', 'pending', 'closed', 'in_progress', 'completed', 'canceled'])->default('open');
+            $table->enum('status', ['open', 'closed', 'in_progress', 'completed', 'canceled'])->default('open');
+            $table->integer('price')->nullable();
         });
     }
 

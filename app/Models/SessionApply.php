@@ -10,7 +10,7 @@ class SessionApply extends Model
     /** @use HasFactory<\Database\Factories\SessionApplyFactory> */
     use HasFactory;
 
-    protected $fillable = ['user_id', 'game_id', 'coaching_session_id', 'status'];
+    protected $fillable = ['user_id', 'price_per_hour', 'game_id', 'coaching_session_id', 'status'];
 
     public function game()
     {

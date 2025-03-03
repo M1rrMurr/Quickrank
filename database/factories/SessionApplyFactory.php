@@ -27,13 +27,15 @@ class SessionApplyFactory extends Factory
         return $this->state(function (array $attributes) use ($session) {
             $sessionCoach = $session->coach->user;
             $users = User::all();
-
+            $game = fake()->randomElement($sessionCoach->games);
+            $price = $game->pivot->price_per_hour;
             $customerIds = $users->except([$sessionCoach->id])->pluck('id');
             return [
                 'coaching_session_id' => $session->id,
                 'user_id' => fake()->randomElement($customerIds),
-                'game_id' => fake()->randomElement($sessionCoach->games)->id,
+                'game_id' => $game->id,
                 'status' => 'pending',
+                'price_per_hour' => $price,
             ];
         });
     }
