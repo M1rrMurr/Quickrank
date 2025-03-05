@@ -6,6 +6,20 @@ import BasicButton from "../../Components/BasicButton.vue";
 const show = ref(false);
 const showModal = () => (show.value = !show.value);
 const showDropdown = ref(false);
+
+const data = ref([
+    { name: "Dancsó", age: 28 },
+    { name: "Zsoli", age: 33 },
+    { name: "Bartos", age: "infinite" },
+]);
+function change(name) {
+    const personToChange = data.value.find((p) => p.name === name);
+    personToChange.name = "changed";
+}
+
+function destroy(name) {
+    data.value = data.value.filter((p) => p.name !== name);
+}
 </script>
 <!-- playground for now -->
 <template>
@@ -18,12 +32,27 @@ const showDropdown = ref(false);
         >
             jó hello vagyok kolbászok nemtudom:
         </div>
+
+        <div class="bg-amber-100 h-96 w-96 overflow-hidden">
+            <div
+                class="bg-violet-400 h-48 w-1/5 shadow-lg shadow-yellow-500 -translate-x-full animate-progress"
+            ></div>
+        </div>
+
         <div class="flex items-end">
             <div class="text-sm leading-none">hello</div>
             <div class="border-0 border-l h-6 border-white"></div>
             <div class="text-lg leading-none">hello</div>
             <div class="border-0 border-l border-white"></div>
             <div class="text-xl leading-none">hello</div>
+        </div>
+        <div class="mt-5">
+            <div class="flex gap-2" v-for="person in data" :key="person.name">
+                <p v-text="person.name"></p>
+                <p v-text="person.age"></p>
+                <button @click="() => change(person.name)">change</button>
+                <button @click="() => destroy(person.name)">destroy</button>
+            </div>
         </div>
         <div class="relative">
             <BasicButton @click="showModal">Gonb</BasicButton>

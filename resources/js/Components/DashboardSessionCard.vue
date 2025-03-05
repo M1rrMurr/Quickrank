@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useForm } from "@inertiajs/vue3";
-
+import TrashBin from "./Svgs/TrashBin.vue";
 import SessionTimestamp from "./SessionTimestamp.vue";
 import LockSvg from "./Svgs/LockSvg.vue";
 import SessionApplyCardRow from "../../../SessionApplyCardRow.vue";
@@ -19,7 +19,6 @@ const applies = computed(() => props.session.session_applies);
 const applyContainer = ref(null);
 const showApplies = ref(null);
 const applyCounter = computed(() => props.session.session_applies.length);
-const sessionCard = ref(null);
 
 const toggleApplies = function () {
     showApplies.value = !showApplies.value;
@@ -34,7 +33,6 @@ const toggleApplies = function () {
 <template>
     <div
         class="px-3 py-1 border border-slate-200 shadow-md rounded w-full bg-sky-50"
-        ref="sessisession.value =onCard"
     >
         <div class="flex items-center justify-between">
             <div class="flex gap-1 items-center">
@@ -46,7 +44,7 @@ const toggleApplies = function () {
                 <span>&dash;</span>
                 <SessionTimestamp :date="session.end" class="text-sky-400" />
             </div>
-            <div class="flex gap-3">
+            <div class="flex">
                 <div class="w-72">
                     <div class="flex items-center gap-2">
                         <span class="font-semibold text-sky-400">Game:</span>
@@ -76,23 +74,26 @@ const toggleApplies = function () {
                         />
                     </div>
                 </div>
-
-                <button
-                    :disabled="!session.customer || !session.game"
-                    @click="emit('openSessionLockModal', session)"
-                    class="mb-4"
-                >
-                    <LockSvg
-                        class="h-6"
-                        :class="{
-                            'text-red-200': !session.game || !session.customer,
-                            'text-green-500': session.game && session.customer,
-                        }"
-                    />
-                </button>
-                <button @click="emit('deleteSession', session.id)">
-                    Delete
-                </button>
+                <div class="flex gap-3 items-center">
+                    <button
+                        :disabled="!session.customer || !session.game"
+                        @click="emit('openSessionLockModal', session)"
+                        class=""
+                    >
+                        <LockSvg
+                            class="h-6"
+                            :class="{
+                                'text-red-200':
+                                    !session.game || !session.customer,
+                                'text-green-500':
+                                    session.game && session.customer,
+                            }"
+                        />
+                    </button>
+                    <button @click="emit('deleteSession', session.id)">
+                        <TrashBin class="h-5 text-red-500" />
+                    </button>
+                </div>
             </div>
         </div>
 

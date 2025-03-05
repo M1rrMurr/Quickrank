@@ -23,13 +23,15 @@ class CoachingSessionFactory extends Factory
         $start = Carbon::instance(fake()->dateTimeBetween('first day of this month', 'last day of this month'))->setMinutes(0);
         $end = Carbon::instance($start)->addHours(1);
         $gameIds = Game::pluck('id')->toArray();
-        $userIds = User::pluck('id')->toArray();
-        $coachIds = Coach::pluck('id')->toArray();
-        $status = ['closed', 'in_progress', 'completed', 'canceled'];
+
+        $coach = fake()->randomElement(Coach::all());
+        $userIds = User::all()->except([$coach->user->id])->pluck('id')->toArray();
+        $status = ['closed', 'completed', 'canceled'];
         return [
             'start' => $start,
             'end' => $end,
-            'coach_id' => fake()->randomElement($coachIds),
+            'coach_id' => $coach->id,
+
             'user_id' => fake()->randomElement($userIds),
             'game_id' => fake()->randomElement($gameIds),
             'status' => fake()->randomElement($status)

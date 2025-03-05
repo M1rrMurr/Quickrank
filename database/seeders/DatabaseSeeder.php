@@ -95,7 +95,7 @@ class DatabaseSeeder extends Seeder
             foreach ($openSessions as $session) {
                 SessionApply::factory(rand(2, 5))->forSession($session)->create();
             }
-            CoachingSession::factory(100)->create(['coach_id' => $coach->coach->id, 'game_id' => fn() => $coach->games->random()->id]);
+            CoachingSession::factory(100)->create(['game_id' => fn() => $coach->games->random()->id]);
         }
     }
 }

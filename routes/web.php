@@ -44,7 +44,7 @@ Route::get('/sessions', [CoachingSessionController::class, 'index']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'can:isCoach']);
 Route::patch('/dashboard/accept-session-apply', [DashboardController::class, 'updateSessionApply'])->middleware('auth');
-Route::patch('/dashboard/close-session', [DashboardController::class, 'closeCoachingSession'])->middleware('auth');
+Route::patch('/dashboard/update-session-status', [DashboardController::class, 'updateCoachingSessionStatus'])->middleware('auth');
 Route::delete('/dashboard/destroy-session', [DashboardController::class, 'destroySession'])->middleware('auth');
 
 Route::post('/sessions/apply', [SessionApplyController::class, 'store'])->middleware('auth');

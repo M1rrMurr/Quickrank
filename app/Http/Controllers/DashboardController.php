@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\CoachingSession;
 use App\Models\SessionApply;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Exceptions;
+use Illuminate\Validation\ValidationException;
 
 class DashboardController extends Controller
 {
@@ -27,9 +29,18 @@ class DashboardController extends Controller
         return redirect()->back();
     }
 
-    public function closeCoachingSession(Request $request)
+    public function updateCoachingSessionStatus(Request $request)
     {
-        CoachingSession::find($request->coachingSessionId)->update(['status' => 'closed']);
+        //dd($request->all());
+        $coachingSession = CoachingSession::find($request->coachingSessionId);
+        $activeSession = $coachingSession->coach->coachingSessions->where('status', 'in_progress')->count();
+
+        if ($request->status === "in_progress" && $activeSession > 0) {
+
+            throw ValidationException::withMessages(['startSession' => 'You have already a session in progress']);
+        }
+
+        $coachingSession->update($request->all());
         return redirect()->back();
     }
 

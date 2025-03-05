@@ -1,10 +1,31 @@
 <script setup>
+import { onMounted, onUnmounted, ref } from "vue";
 import SessionTimestamp from "./SessionTimestamp.vue";
 import TransitionButton from "./TransitionButton.vue";
 import ClosedSessionCardRow from "./ClosedSessionCardRow.vue";
 import CancelSvg from "./Svgs/CancelSvg.vue";
 import PlaySvg from "./Svgs/PlaySvg.vue";
-const props = defineProps({ session: Object });
+const props = defineProps({ session: Object, error: String });
+const emit = defineEmits([
+    "cancelSession",
+    "destroySession",
+    "startSession",
+    "clearStartSessionError",
+]);
+
+const errorRef = ref(null);
+
+function closeError(e) {
+    if (errorRef.value) {
+        if (!errorRef.value.contains(e.target)) {
+            emit("clearStartSessionError");
+        }
+    }
+}
+
+onMounted(() => document.addEventListener("click", (e) => closeError(e)));
+
+onUnmounted(() => document.removeEventListener("click", closeError));
 </script>
 
 <template>
@@ -28,35 +49,25 @@ const props = defineProps({ session: Object });
                 name-prop="Game:"
                 :value="session.game.name"
             />
-            <div class="w-full flex justify-end gap-2 mt-3">
-                <TransitionButton
+            <div class="relative w-full flex justify-end gap-2 mt-3">
+                <TransitionButton @click="emit('cancelSession', session.id)"
                     ><template #icon
                         ><CancelSvg class="h-5 text-red-300" /></template
                     ><span class="text-red-300">Cancel</span>
                 </TransitionButton>
-                <TransitionButton @click="console.log('helo')">
+                <div
+                    ref="errorRef"
+                    class="absolute text-sm font-normal text-red-500 -translate-y-6 bg-white border rounded-md px-2 py-1"
+                    v-if="error"
+                    v-text="error"
+                ></div>
+
+                <TransitionButton @click="emit('startSession', session.id)">
                     <template #icon
                         ><PlaySvg class="h-5 text-blue-300"
                     /></template>
                     <span class="text-blue-300"> Start</span>
                 </TransitionButton>
-
-                <!--
-                <button class="group flex text-sm font-semibold items-center">
-                    <span
-                        class="text-red-200 group-hover:text-red-500 transition-colors duration-300"
-                        >Cancel</span
-                    >
-                    <CancelSvg class="h-5 text-red-400" />
-                </button>
-                <button class="group flex font-semibold items-center text-sm">
-                    <span
-                        class="text-emerald-200 group-hover:text-emerald-500 transition-colors duration-300"
-                        >Start</span
-                    >
-                    <PlaySvg class="h-5 text-emerald-400" />
-                </button>
--->
             </div>
         </div>
     </div>

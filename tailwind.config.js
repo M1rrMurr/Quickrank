@@ -11,6 +11,14 @@ export default {
     ],
     theme: {
         extend: {
+            keyframes: {
+                progress: {
+                    "100%": { transform: "translateX(500%)" },
+                },
+            },
+            animation: {
+                progress: "progress 2s ease-in infinite ",
+            },
             fontFamily: {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
             },

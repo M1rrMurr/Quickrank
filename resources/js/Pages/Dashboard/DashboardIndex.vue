@@ -6,6 +6,7 @@ import DashboardSessionCard from "../../Components/DashboardSessionCard.vue";
 import SessionLockModal from "../../Components/SessionLockModal.vue";
 import ClosedSessionCard from "../../Components/ClosedSessionCard.vue";
 import ModalContainer from "../../Components/ModalContainer.vue";
+import ActiveSessionCard from "../../Components/ActiveSessionCard.vue";
 import { ref } from "vue";
 
 const props = defineProps({ sessions: Object });
@@ -19,9 +20,8 @@ const openSessions = computed(() =>
 const closedSessions = computed(() =>
     sessions.value.filter((session) => session.status === "closed"),
 );
-
 const activeSessions = computed(() =>
-    sessions.value.filter((session) => session.satus === "active"),
+    sessions.value.filter((session) => session.status === "in_progress"),
 );
 
 const showLockModal = ref(false);
@@ -31,9 +31,9 @@ const sessionToLock = ref(null);
 
 const acceptApplyform = useForm({ status: null, id: null });
 
-function submitAcceptApplyForm(applyId, sessionId) {
+function submitAcceptApplyForm(applyId, sessionId, status) {
     acceptApplyform.id = applyId;
-    acceptApplyform.status = "accepted";
+    acceptApplyform.status = status;
     acceptApplyform.patch("/dashboard/accept-session-apply", {
         preserveScroll: true,
         onSuccess: () => {
@@ -77,18 +77,28 @@ function destroySession() {
     showDestroyModal.value = !showDestroyModal.value;
 }
 
-// close session
+// update session status
 
-const closeSessionForm = useForm({ coachingSessionId: null });
+const updateSessionForm = useForm({ coachingSessionId: null, status: null });
+const startSessionError = ref("");
+const startSessionErrorId = ref(null);
 
-function closeSession(id) {
-    closeSessionForm.coachingSessionId = id;
-    closeSessionForm.patch("/dashboard/close-session", {
+function updateSessionStatus(id, status) {
+    updateSessionForm.coachingSessionId = id;
+    updateSessionForm.status = status;
+    updateSessionForm.patch("/dashboard/update-session-status", {
         preserveScroll: true,
         onSuccess: () => {
             const session = sessions.value.find((session) => session.id === id);
-            session.status = "closed";
-            showLockModal.value = !showLockModal.value;
+            session.status = status;
+            if (status === "closed") {
+                showLockModal.value = !showLockModal.value;
+            }
+        },
+        onError: (m) => {
+            console.log(m);
+            startSessionError.value = m.startSession;
+            startSessionErrorId.value = id;
         },
     });
 }
@@ -100,7 +110,6 @@ function listenForApplies() {
             const coachingSession = openSessions.value.find(
                 (session) => session.id === e.sessionApply.coaching_session_id,
             );
-            console.log(coachingSession);
             coachingSession.session_applies.push(e.sessionApply);
         },
     );
@@ -117,10 +126,31 @@ onUnmounted(() =>
 
 <template>
     <AppLayout>
-        <h1 class="text-3xl text-slate-800 font-bold mb-6">
+        <h1 class="text-3xl text-slate-700 font-semibold mb-6">
             Coaching Dashboard
         </h1>
-
+        <div class="">
+            <h2
+                class="text-xl mb-5 font-semibold bg-gradient-to-r from-slate-400 to-violet-800 text-transparent bg-clip-text"
+            >
+                Active Session
+            </h2>
+            <div v-if="activeSessions.length > 0" class="w-1/3 mb-6 ml-3">
+                <ActiveSessionCard
+                    v-for="session in activeSessions"
+                    :key="session.id"
+                    :session="session"
+                    @finish-session="
+                        (id) => updateSessionStatus(id, 'completed')
+                    "
+                />
+            </div>
+            <div class="mb-6 ml-3" v-else>
+                <p class="underline decoration-slate-300 decoration-4">
+                    There is no active session
+                </p>
+            </div>
+        </div>
         <div class="flex gap-5">
             <div class="w-3/5 mr-5">
                 <h2
@@ -128,13 +158,13 @@ onUnmounted(() =>
                 >
                     Open Sessions
                 </h2>
-                <div class="relative space-y-5 overflow-hidden">
+                <div class="relative space-y-5 overflow-hidden ml-3">
                     <TransitionGroup
-                        move-class="transition-all duration-500 ease-in-out"
-                        enter-active-class="transition-all ease-in duration-500"
+                        move-class="transition-all duration-700 ease-in-out"
+                        enter-active-class="transition-all ease-in duration-700"
                         enter-from-class="translate-y-4"
                         enter-to-class="translate-y-0"
-                        leave-active-class="transition-all ease-out duration-500 absolute"
+                        leave-active-class="transition-all ease-out duration-700 absolute"
                         leave-from-class="opacity-100 translate-y-0"
                         leave-to-class="opacity-0 -translate-y-full"
                     >
@@ -151,16 +181,17 @@ onUnmounted(() =>
                             "
                             @accept-apply="
                                 (applyId, sessionId) =>
-                                    submitAcceptApplyForm(applyId, sessionId)
+                                    submitAcceptApplyForm(
+                                        applyId,
+                                        sessionId,
+                                        'accepted',
+                                    )
                             "
                         />
                     </TransitionGroup>
                 </div>
             </div>
             <div class="w-2/5">
-                <div class="">
-                    <h2 class="">Active Sessions</h2>
-                </div>
                 <h2
                     class="text-2xl font-semibold bg-gradient-to-r from-slate-500 to-emerald-500 text-transparent bg-clip-text"
                 >
@@ -171,6 +202,18 @@ onUnmounted(() =>
                         v-for="session in closedSessions"
                         :key="session.id"
                         :session="session"
+                        :error="
+                            session.id === startSessionErrorId
+                                ? startSessionError
+                                : ''
+                        "
+                        @clear-start-session-error="startSessionError = ''"
+                        @cancel-session="
+                            (id) => updateSessionStatus(id, 'open')
+                        "
+                        @start-session="
+                            (id) => updateSessionStatus(id, 'in_progress')
+                        "
                     >
                     </ClosedSessionCard>
                 </div>
@@ -180,7 +223,13 @@ onUnmounted(() =>
         <ModalContainer v-if="showLockModal">
             <SessionLockModal
                 :session="sessionToLock"
-                @close-session="(id) => closeSession(id)"
+                @close-session="(id) => updateSessionStatus(id, 'closed')"
+                @close-Modal="
+                    () => {
+                        (sessionToLock = null),
+                            (showLockModal = !showLockModal);
+                    }
+                "
         /></ModalContainer>
 
         <!-- destroy modal -->

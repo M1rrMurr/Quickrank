@@ -1,7 +1,7 @@
 <script setup>
 import SessionTimestamp from "./SessionTimestamp.vue";
 const props = defineProps({ session: Object });
-const emit = defineEmits(["closeSession"]);
+const emit = defineEmits(["closeSession", "closeModal"]);
 </script>
 
 <template>
